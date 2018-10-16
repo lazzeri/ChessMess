@@ -16,7 +16,7 @@ public class SC_Pawn : MonoBehaviour {
     public bool B_Reserving = false;
     public float F_RESERVERATIONSPEED = 0.5f;
     public SC_GameManager SC_GameManage;
-    bool B_IamAtacking = false;
+    public bool B_IamAtacking = false;
     public GameObject Player; 
     public bool B_InTick = false;
     public int I_TickCount = 0;
@@ -177,24 +177,14 @@ public class SC_Pawn : MonoBehaviour {
 
                 if (B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z)
                 {
-                     B_Moving = false;
-
-                    if(B_IamAtacking)
-                    {
-                    B_IamAtacking = false;
-                    SC_GameManage.setAtacking(false);
-                    }
- 
+                    B_Moving = false;
+                
                     for (int i = 0; i > 8; i++)
                     {
                         B_WhatToMove[i] = false;
                         SC_Reserve[i].SetOffTriger();
                     }
-                  if(!B_InTick)
-                  {
-                    StartCoroutine(TickTock());
-                    B_InTick = true;
-                  }
+                  
                    
                 }
                 else if (B_Moving && transform.position != T_Target.transform.position)
@@ -203,14 +193,17 @@ public class SC_Pawn : MonoBehaviour {
                 }
                 else if(!B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z && !B_InTick)
                 {
-                    if(!B_InTick)
-                    {
                     StartCoroutine(TickTock());
                     B_InTick = true;
-                    }
-                   
 
-                }
+                    if (B_IamAtacking)
+                    {
+                    B_IamAtacking = false;
+                    SC_GameManage.setAtacking(false);
+                    }
+
+
+            }
 
 
 
