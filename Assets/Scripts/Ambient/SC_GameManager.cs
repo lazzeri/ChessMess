@@ -5,12 +5,13 @@ using UnityEngine;
 public class SC_GameManager : MonoBehaviour {
     public GameObject Pawn,PlayerPawn;
     public bool B_Atacking;
+    public bool B_Reserving;
     // Use this for initialization
     public List<GameObject> Enemies = new List<GameObject>();
 
     void Start () {
         B_Atacking = false;
-      
+        B_Reserving = false;
         CreatePawn(5,5);
         CreatePawn(15,15);
         CreatePawn(35,35);
@@ -104,6 +105,18 @@ public class SC_GameManager : MonoBehaviour {
     }
 
     public void setAtacking(bool boolean)
+    {
+        B_Atacking = boolean;
+    }
+
+
+     public bool getReserving()
+    {
+        return B_Reserving;
+
+    }
+
+    public void setReserving(bool boolean)
     {
         B_Atacking = boolean;
     }

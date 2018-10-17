@@ -221,12 +221,22 @@ public class SC_Pawn : MonoBehaviour {
 
     public IEnumerator Reservation(int num)
     {
+         while(SC_GameManage.getReserving() == true)
+        {
+            //Whaiting
+            yield return new WaitForSeconds(0.05f);
+        }
+        
         print("Reserving");
+        SC_GameManage.setReserving(true);
         B_Reserving = true;
+        SC_GameManage.setReserving(false);
         SC_Reserve[num].SetToTrigger();
+        
         yield return new WaitForSeconds(F_RESERVERATIONSPEED);
         SC_Reserve[num].SetOffTriger();
         B_Reserving = false;
+
     }
  
 
@@ -303,6 +313,13 @@ public class SC_Pawn : MonoBehaviour {
     }
     IEnumerator TickTock()
     {
+        while(SC_GameManage.getReserving() == true)
+        {
+            //Whaiting
+            yield return new WaitForSeconds(0.05f);
+        }
+
+
         I_TickCount++;
         B_InTick = true;
         if(GameObject.Find("Player") != null)
