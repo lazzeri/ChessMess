@@ -4743,7 +4743,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4508508513702186, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -26.44
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 4508508513702186, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_LocalRotation.x
@@ -5300,8 +5300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c0c7cec2f88c24cab210f7dac6e2ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TickSpeed: 100
-  PlayerSide: 0
+  TickSpeed: 1000
+  PlayerSide: 1
   M_Mat: {fileID: 0}
 --- !u!65 &1688426058
 BoxCollider:

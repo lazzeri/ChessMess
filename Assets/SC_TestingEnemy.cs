@@ -18,5 +18,6 @@ public class SC_TestingEnemy : MonoBehaviour {
     {
 
         print(other.gameObject.name);
+        Time.timeScale = 0;
     }
 }
