@@ -6,23 +6,22 @@ public class SC_GameManager : MonoBehaviour {
     public GameObject Pawn,PlayerPawn;
     public bool B_Atacking;
     public bool B_Reserving;
-    public bool B_StartOfTickRoutine;
     // Use this for initialization
 
     public bool B_Test;
     public List<GameObject> Enemies = new List<GameObject>();
 
     void Start () {
-        B_StartOfTickRoutine = true;
         B_Atacking = false;
         B_Reserving = false;
         CreatePawn(5,5);
         CreatePawn(15,15);
-        CreatePawn(35,35);
-        CreatePawn(-25f,25f);
-        CreatePawn(-15,35);
-        CreatePawn(25f,-35f);
-        CreatePawn(-15,5);
+         CreatePawn(35,35);
+         CreatePawn(-25f,25f);
+         CreatePawn(-15,35);
+         CreatePawn(25f,-35f);
+         CreatePawn(-15,5);
+
     }
 
     void CreatePawn(float x, float z)
@@ -35,7 +34,11 @@ public class SC_GameManager : MonoBehaviour {
         Enemies.Add(Enemie1);
     }
 	
+	// Update is called once per frame
+	void Update () {
+		
 
+	}
     public void StopEnemies()
     {
       foreach(GameObject Enemy in Enemies)
@@ -62,25 +65,11 @@ public class SC_GameManager : MonoBehaviour {
       
        }
     }
-    IEnumerator StartTickTocks()
-    {
-        B_StartOfTickRoutine = false;
-        foreach (GameObject Enemy in Enemies)
-        {
-            if (Enemy.GetComponent<SC_Pawn>().getB_Moving() == false && B_Atacking != true)
-            {
-                StartCoroutine(Enemy.GetComponent<SC_Pawn>().TickTock());
-            }
-            yield return new WaitForSeconds(0.1f);
-        }
-        B_StartOfTickRoutine = true;
-    }
 
 
     private void FixedUpdate()
     {
-        if (B_StartOfTickRoutine)
-            StartCoroutine(StartTickTocks());
+       
 
 
         if (Input.GetKey("space"))
@@ -131,7 +120,7 @@ public class SC_GameManager : MonoBehaviour {
 
     public void setReserving(bool boolean)
     {
-        B_Reserving = boolean;
+        B_Atacking = boolean;
     }
 
 

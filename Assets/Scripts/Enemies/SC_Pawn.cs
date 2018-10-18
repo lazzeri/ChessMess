@@ -25,7 +25,6 @@ public class SC_Pawn : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        B_Moving = false;
         SC_TickTock = GameObject.Find("TickTock").GetComponent<CS_TICKTOCK>();
         Player = GameObject.Find("Player");
         SC_GameManage = GameObject.Find("GameManager").GetComponent<SC_GameManager>();
@@ -56,6 +55,7 @@ public class SC_Pawn : MonoBehaviour {
         PlayerSides[4] = Player.transform.GetChild(1).gameObject;
         PlayerSides[5] = Player.transform.GetChild(2).gameObject;
         }
+       
 
         B_WhatToMove = new bool[8];
         for(int i = 0; i > 8; i++)
@@ -70,18 +70,13 @@ public class SC_Pawn : MonoBehaviour {
         {
             GO_Positions[i] = this.transform.GetChild(i).gameObject;
         }
-      
+      //      StartCoroutine(TickTock());
     }
     
 
     public void SetB_Moving()
     {
         B_Moving = true;
-    }
-
-    public bool getB_Moving()
-    {
-        return B_Moving;
     }
 
    public void SetPlayersides()
@@ -166,9 +161,17 @@ public class SC_Pawn : MonoBehaviour {
                 B_WhatToMove[7] = false;
                 T_Target.transform.position = GO_Positions[7].transform.position;
                 B_Moving = true;
-            }                
+            }
+           //}
+           
+
+
+           
 
             float F_Step = F_Speed * Time.deltaTime;
+
+        
+
 
                 if (B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z)
                 {
@@ -188,15 +191,19 @@ public class SC_Pawn : MonoBehaviour {
                 }
                 else if(!B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z && !B_InTick)
                 {
-                    if (B_IamAtacking)
+                     if (B_IamAtacking)
                     {
                     B_IamAtacking = false;
                     SC_GameManage.setAtacking(false);
                     }
-                                 
-                   B_InTick = true;
+                    
+                    StartCoroutine(TickTock());
+                    B_InTick = true;
 
-                }
+                   
+
+
+            }
 
 
 
@@ -207,12 +214,19 @@ public class SC_Pawn : MonoBehaviour {
 
     public IEnumerator Reservation(int num)
     {
+         while(SC_GameManage.getReserving() == true)
+        {
+            //Whaiting
+            yield return new WaitForSeconds(0.05f);
+        }
+        
+        print("Reserving");
+        SC_GameManage.setReserving(true);
         B_Reserving = true;
+        SC_GameManage.setReserving(false);
         SC_Reserve[num].SetToTrigger();
         
         yield return new WaitForSeconds(F_RESERVERATIONSPEED);
- 
-        SC_GameManage.setReserving(false);
         SC_Reserve[num].SetOffTriger();
         B_Reserving = false;
 
@@ -278,22 +292,41 @@ public class SC_Pawn : MonoBehaviour {
 
     }
 
-    public IEnumerator TickTock()
+    void FixedUpdate()
     {
+        if(I_TickCount == 0 && B_InTick)
+        {
+            StopCoroutine(TickTock());
+            StartCoroutine(TickTock());
+            
+        }
+
+      
+
+    }
+    IEnumerator TickTock()
+    {
+        while(SC_GameManage.getReserving() == true)
+        {
+            //Whaiting
+            yield return new WaitForSeconds(0.05f);
+        }
+
+
         I_TickCount++;
         B_InTick = true;
-   
         if(GameObject.Find("Player") != null)
         {
-                Player = GameObject.Find("Player");
-                PlayerSides[0] = Player.transform.GetChild(4).gameObject;
-                PlayerSides[1] = Player.transform.GetChild(5).gameObject;
-                PlayerSides[2] = Player.transform.GetChild(6).gameObject;
-                PlayerSides[3] = Player.transform.GetChild(7).gameObject;
-                PlayerSides[4] = Player.transform.GetChild(1).gameObject;
-                PlayerSides[5] = Player.transform.GetChild(2).gameObject;
+                  Player = GameObject.Find("Player");
+                  PlayerSides[0] = Player.transform.GetChild(4).gameObject;
+                  PlayerSides[1] = Player.transform.GetChild(5).gameObject;
+                  PlayerSides[2] = Player.transform.GetChild(6).gameObject;
+                  PlayerSides[3] = Player.transform.GetChild(7).gameObject;
+                  PlayerSides[4] = Player.transform.GetChild(1).gameObject;
+                  PlayerSides[5] = Player.transform.GetChild(2).gameObject;
                 yield return new WaitForSeconds(TICKTOCKSPEED);
-               //Searching Nearest Target
+                yield return new WaitForSeconds(Random.Range(0.1f, 2.5f));
+            //Searching Nearest Target
 
         if(GameObject.Find("Player") != null)
         {    
@@ -407,7 +440,7 @@ public class SC_Pawn : MonoBehaviour {
         }
     }
 
-  
 
-    }
+   
+}
 

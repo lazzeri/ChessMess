@@ -71,6 +71,7 @@ public class SC_TriggerPlayerPawn : MonoBehaviour {
             {
                 if (TargetTag == ("Enemy") || TargetTag == ("ReservationEnemy") || TargetTag == ("Player") || TargetTag == ("ReservationPlayer"))
                 {
+                    print(TargetTag);
                     return true;
 
                 }
