@@ -7,6 +7,8 @@ public class SC_GameManager : MonoBehaviour {
     public bool B_Atacking;
     public bool B_Reserving;
     // Use this for initialization
+
+    public bool B_Test;
     public List<GameObject> Enemies = new List<GameObject>();
 
     void Start () {
@@ -14,11 +16,11 @@ public class SC_GameManager : MonoBehaviour {
         B_Reserving = false;
         CreatePawn(5,5);
         CreatePawn(15,15);
-        CreatePawn(35,35);
-        CreatePawn(-25f,25f);
-        CreatePawn(-15,35);
-        CreatePawn(25f,-35f);
-        CreatePawn(-15,5);
+         CreatePawn(35,35);
+         CreatePawn(-25f,25f);
+         CreatePawn(-15,35);
+         CreatePawn(25f,-35f);
+         CreatePawn(-15,5);
 
     }
 

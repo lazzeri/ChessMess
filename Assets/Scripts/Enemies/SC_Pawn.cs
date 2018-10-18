@@ -102,9 +102,7 @@ public class SC_Pawn : MonoBehaviour {
 
         if (!B_Reserving)
         {
-            //Moving
-          // if(!B_InTick)
-          // {
+          
             if (B_WhatToMove[0] && !B_Moving && !B_Reserving)
             {
                 StartCoroutine(Reservation(0));
@@ -193,14 +191,16 @@ public class SC_Pawn : MonoBehaviour {
                 }
                 else if(!B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z && !B_InTick)
                 {
-                    StartCoroutine(TickTock());
-                    B_InTick = true;
-
-                    if (B_IamAtacking)
+                     if (B_IamAtacking)
                     {
                     B_IamAtacking = false;
                     SC_GameManage.setAtacking(false);
                     }
+                    
+                    StartCoroutine(TickTock());
+                    B_InTick = true;
+
+                   
 
 
             }
