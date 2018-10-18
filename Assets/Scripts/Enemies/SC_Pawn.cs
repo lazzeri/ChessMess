@@ -197,10 +197,14 @@ public class SC_Pawn : MonoBehaviour {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                     StartCoroutine(TickTock());
                     B_InTick = true;
 
                     if (B_IamAtacking)
+=======
+                     if (B_IamAtacking)
+>>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
 =======
                      if (B_IamAtacking)
 >>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
@@ -221,7 +225,16 @@ public class SC_Pawn : MonoBehaviour {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+                    
+                    StartCoroutine(TickTock());
+                    B_InTick = true;
+
+                   
+
+>>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
 =======
                     
                     StartCoroutine(TickTock());
@@ -349,6 +362,7 @@ public class SC_Pawn : MonoBehaviour {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
     {
@@ -401,6 +415,21 @@ public class SC_Pawn : MonoBehaviour {
 =======
 >>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
 =======
+    {
+>>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
+=======
+    {
+        if(I_TickCount == 0 && B_InTick)
+        {
+            StopCoroutine(TickTock());
+            StartCoroutine(TickTock());
+            
+        }
+
+      
+
+    }
+    IEnumerator TickTock()
     {
 >>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
         while(SC_GameManage.getReserving() == true)

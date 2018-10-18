@@ -18,12 +18,15 @@ public class SC_GameManager : MonoBehaviour {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         CreatePawn(35,35);
         CreatePawn(-25f,25f);
         CreatePawn(-15,35);
         CreatePawn(25f,-35f);
         CreatePawn(-15,5);
 =======
+=======
+>>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
 =======
 >>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
 =======
@@ -38,6 +41,9 @@ public class SC_GameManager : MonoBehaviour {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
+=======
 >>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
 =======
 >>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
