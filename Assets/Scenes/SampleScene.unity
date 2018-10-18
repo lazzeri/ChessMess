@@ -1851,6 +1851,10 @@ MonoBehaviour:
   PlayerPawn: {fileID: 2012083088}
   B_Atacking: 0
   B_Reserving: 0
+<<<<<<< HEAD
+=======
+  B_Test: 0
+>>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
   Enemies: []
 --- !u!4 &664723579
 Transform:

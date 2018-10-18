@@ -14,11 +14,19 @@ public class SC_GameManager : MonoBehaviour {
         B_Reserving = false;
         CreatePawn(5,5);
         CreatePawn(15,15);
+<<<<<<< HEAD
         CreatePawn(35,35);
         CreatePawn(-25f,25f);
         CreatePawn(-15,35);
         CreatePawn(25f,-35f);
         CreatePawn(-15,5);
+=======
+         CreatePawn(35,35);
+         CreatePawn(-25f,25f);
+         CreatePawn(-15,35);
+         CreatePawn(25f,-35f);
+         CreatePawn(-15,5);
+>>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
 
     }
 
