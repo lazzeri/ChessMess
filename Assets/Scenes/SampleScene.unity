@@ -1852,7 +1852,10 @@ MonoBehaviour:
   B_Atacking: 0
   B_Reserving: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
   B_Test: 0
 >>>>>>> parent of a012a0f... Finally Fixed Pawn Movement
   Enemies: []
