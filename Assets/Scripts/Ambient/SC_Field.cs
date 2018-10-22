@@ -56,9 +56,13 @@ public class SC_Field : MonoBehaviour {
 
     public void OnTriggerStay(Collider other)
     {
-        if(count == 2)
+        if(count > 1)
         {
             count = 1;
+        }
+        if(count < 0)
+        {
+            count = 0;
         }
        
             if (other.CompareTag("Player"))

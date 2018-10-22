@@ -164,24 +164,24 @@ public class SC_Pawn : MonoBehaviour {
 
             float F_Step = F_Speed * Time.deltaTime;
 
-               if (B_Moving && transform.position != T_Target.transform.position)
+                if (B_Moving && transform.position != T_Target.transform.position)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, T_Target.transform.position, F_Step);
                 }
                 else if (B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z && !B_InTick)
                 {
                     B_Moving = false;
-                }
-                else if(!B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z && !B_InTick)
-                {
-                    // THIS IS SOOOO WRONG!!!
-                    print("LOL");
+
                     if (B_IamAtacking)
                     {
                     B_IamAtacking = false;
                     SC_GameManage.setAtacking(false);
                     }
-                                 
+
+                }
+                else if(!B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z && !B_InTick)
+                {
+                          
                    B_InTick = false;
                             
                 }

@@ -19,13 +19,13 @@ public class SC_GameManager : MonoBehaviour {
         B_StartOfTickRoutine = true;
         B_Atacking = false;
         B_Reserving = false;
-        //CreatePawn(5,5);
-        //CreatePawn(15,15);
-       //CreatePawn(35,35);
-       // CreatePawn(-25f,25f);
-      // CreatePawn(-15,35);
-       CreatePawn(25f,-35f); // CLosest one
-       //CreatePawn(-15,5);
+        CreatePawn(5,5);
+        CreatePawn(15,15);
+        CreatePawn(35,35);
+        CreatePawn(-25f,25f);
+        CreatePawn(-15,35);
+        CreatePawn(25f,-35f); // CLosest one
+        CreatePawn(-15,5);
     }
 
     void CreatePawn(float x, float z)
@@ -90,9 +90,11 @@ public class SC_GameManager : MonoBehaviour {
         else if(Enemies.Count > 1)
         {
         for(int i = 0; i < Enemies.Count; i++)
-        { 
-            
-            
+        {
+
+            if (getAtacking() == true)
+            breaker = true;
+
             if(Enemies[i].GetComponent<SC_Pawn>().getToRemove())
             {
             Enemies[i].GetComponent<SC_Pawn>().ResetReservation();
