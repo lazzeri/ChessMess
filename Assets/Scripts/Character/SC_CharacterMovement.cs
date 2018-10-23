@@ -35,6 +35,7 @@ public class SC_CharacterMovement : MonoBehaviour {
         B_Moving = false;
         GO_Positions = new GameObject[8];
         T_Target = new GameObject();
+        T_Target.name = "PlayerMoveTarget";
         T_Target.transform.position = this.transform.position;
 		for(int i = 0; i < 8; i++)
         {

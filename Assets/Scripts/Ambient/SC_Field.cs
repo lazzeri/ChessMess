@@ -92,7 +92,7 @@ public class SC_Field : MonoBehaviour {
 
             if (count == 0)
             {
-                if (transform.tag != "ReservationPlayer" && transform.tag != "ReservationEnemy")
+                if (!transform.CompareTag("ReservationPlayer")   && !transform.CompareTag("ReservationEnemy"))
                 {
                     transform.tag = "Untagged";
                     M_Mat.material.color = Color.gray;

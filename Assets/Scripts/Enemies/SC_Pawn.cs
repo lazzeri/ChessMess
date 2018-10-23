@@ -26,6 +26,16 @@ public class SC_Pawn : MonoBehaviour {
 
     bool B_ToRemove = false;
 
+
+    void FixedUpdate()
+    {
+         if (Input.GetKey("o"))
+        {
+            GO_Target = null;
+            Destroy(GO_Target); // this doesnt work
+            Destroy(T_Target); //works
+        }
+    }
     // Use this for initialization
     void Start()
     {
@@ -46,9 +56,7 @@ public class SC_Pawn : MonoBehaviour {
             SC_Reserve[c] = transform.GetChild(c + 8).GetComponent<SC_ReservationScript>();
         }
 
-
-        GO_Target = new GameObject();
-        GO_Target.name = "ChessTarget";
+       
         // 0 = NW 1 = NO 2 = SW 3 = SO
         PlayerSides = new GameObject[6];
        if(GameObject.Find("Player") != null) 
@@ -68,7 +76,12 @@ public class SC_Pawn : MonoBehaviour {
         }
       
         GO_Positions = new GameObject[8];
+
+        
+        GO_Target = null;
+
         T_Target = new GameObject();
+        T_Target.name = "PawnMoveToTarget";
         T_Target.transform.position = this.transform.position;
         for (int i = 0; i < 8; i++)
         {
@@ -99,8 +112,7 @@ public class SC_Pawn : MonoBehaviour {
                   PlayerSides[3] = Player.transform.GetChild(7).gameObject;
                   PlayerSides[4] = Player.transform.GetChild(1).gameObject;
                   PlayerSides[5] = Player.transform.GetChild(2).gameObject;
-                  GO_Target = new GameObject();
-                  GO_Target.name = "ChessTarget";   
+                  GO_Target = null;
                   StopCoroutine(TickTock());
                   StartCoroutine(TickTock());
     }
@@ -224,7 +236,7 @@ public class SC_Pawn : MonoBehaviour {
 
     IEnumerator HorizontalMode()
     {
-         if(PlayerSides != null)
+        if(PlayerSides != null)
         {
         yield return new WaitForSeconds(0.0f);
         float NToTarget = Vector3.Distance(PlayerSides[4].transform.position, transform.position);
@@ -443,5 +455,11 @@ public class SC_Pawn : MonoBehaviour {
       return B_ToRemove;
   }
 
-    }
+  public void DestroyAllChilds()
+  {
+      Destroy(this.T_Target); // It does work lmao hahaha  
+  }
+
+
+}
 

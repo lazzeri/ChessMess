@@ -12,20 +12,20 @@ public class SC_GameManager : MonoBehaviour {
 
     public bool Test;
     public List<GameObject> Enemies = new List<GameObject>();
-
+    
 
     void Start () {
         B_LastToKill = false;
         B_StartOfTickRoutine = true;
         B_Atacking = false;
         B_Reserving = false;
-        CreatePawn(5,5);
-        CreatePawn(15,15);
-        CreatePawn(35,35);
-        CreatePawn(-25f,25f);
-        CreatePawn(-15,35);
+    //    CreatePawn(5,5);
+    //    CreatePawn(15,15);
+    //    CreatePawn(35,35);
+    //    CreatePawn(-25f,25f);
+    //    CreatePawn(-15,35);
         CreatePawn(25f,-35f); // CLosest one
-        CreatePawn(-15,5);
+    //    CreatePawn(-15,5);
     }
 
     void CreatePawn(float x, float z)
@@ -77,6 +77,7 @@ public class SC_GameManager : MonoBehaviour {
         {
             Enemies[0].GetComponent<SC_Pawn>().StopAllCoroutines();
             yield return new WaitForSeconds(0.1f);
+            Enemies[0].GetComponent<SC_Pawn>().DestroyAllChilds();
             Destroy(Enemies[0]);
             Enemies.Remove(Enemies[0]);
             breaker = true;
@@ -99,6 +100,7 @@ public class SC_GameManager : MonoBehaviour {
             {
             Enemies[i].GetComponent<SC_Pawn>().ResetReservation();
             Enemies[i].GetComponent<SC_Pawn>().StopAllCoroutines();
+            Enemies[i].GetComponent<SC_Pawn>().DestroyAllChilds();
             Destroy(Enemies[i]);
             Enemies.Remove(Enemies[i]);
             breaker = true;
