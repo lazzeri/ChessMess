@@ -47,7 +47,7 @@ public class SC_Field : MonoBehaviour {
 
             if (other.CompareTag("ReservationEnemy"))
             {
-                M_Mat.material.color = Color.yellow;
+                M_Mat.material.color = Color.blue;
                 transform.tag = "ReservationEnemy";
             }
         
@@ -82,7 +82,7 @@ public class SC_Field : MonoBehaviour {
 
             if (other.CompareTag("ReservationEnemy"))
             {
-                M_Mat.material.color = Color.yellow;
+                M_Mat.material.color = Color.blue;
                 transform.tag = "ReservationEnemy";
             }
 
@@ -92,6 +92,13 @@ public class SC_Field : MonoBehaviour {
                 {
                     transform.tag = "Untagged";
                     M_Mat.material.color = Color.gray;
+                }
+
+                if(transform.CompareTag("ReservationEnemy") && other.CompareTag("Reset"))
+                {
+                    transform.tag = "Untagged";
+                    M_Mat.material.color = Color.gray;
+
                 }
             }
 

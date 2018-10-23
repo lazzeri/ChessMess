@@ -22,6 +22,10 @@ public class SC_Pawn : MonoBehaviour {
     public int I_TickCount = 0;
     public CS_TICKTOCK SC_TickTock;
 
+    public bool B_Tried;
+
+    bool B_ToRemove = false;
+
     // Use this for initialization
     void Start()
     {
@@ -84,6 +88,8 @@ public class SC_Pawn : MonoBehaviour {
         return B_Moving;
     }
 
+
+
    public void SetPlayersides()
     {
                   Player = GameObject.Find("Player");
@@ -103,7 +109,11 @@ public class SC_Pawn : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-      
+      if(B_ToRemove)
+      {
+        B_Moving = false;
+        ResetReservation();
+      }
 
         if (!B_Reserving)
         {
@@ -111,91 +121,69 @@ public class SC_Pawn : MonoBehaviour {
             if (B_WhatToMove[0] && !B_Moving && !B_Reserving)
             {
                 StartCoroutine(Reservation(0));
-                B_WhatToMove[0] = false;
-                T_Target.transform.position = GO_Positions[0].transform.position;
-                B_Moving = true;
+               
             }
             else if (B_WhatToMove[1] && !B_Moving && !B_Reserving)
             {
                 StartCoroutine(Reservation(1));
-                B_WhatToMove[1] = false;
-                T_Target.transform.position = GO_Positions[1].transform.position;
-                B_Moving = true;
+                
             }
             else if (B_WhatToMove[2] && !B_Moving && !B_Reserving )
             {
                 StartCoroutine(Reservation(2));
-                B_WhatToMove[2] = false;
-                T_Target.transform.position = GO_Positions[2].transform.position;
-                B_Moving = true;
+               
             }
             else if (B_WhatToMove[3] && !B_Moving && !B_Reserving)
             {           
                 StartCoroutine(Reservation(3));
-                B_WhatToMove[3] = false;
-                T_Target.transform.position = GO_Positions[3].transform.position;
-                B_Moving = true;
+               
             }
 
             //Atacking
             if (B_WhatToMove[4] && !B_Moving)
             {
                 StartCoroutine(Reservation(4));
-                B_WhatToMove[4] = false;
-                T_Target.transform.position = GO_Positions[4].transform.position;
-                B_Moving = true;
+               
 
             }
             else if (B_WhatToMove[5] && !B_Moving)
             {
                 StartCoroutine(Reservation(5));
-                B_WhatToMove[5] = false;
-                T_Target.transform.position = GO_Positions[5].transform.position;
-                B_Moving = true;
+               
             }
             else if (B_WhatToMove[6] && !B_Moving)
             {
                 StartCoroutine(Reservation(6));
-                B_WhatToMove[6] = false;
-                T_Target.transform.position = GO_Positions[6].transform.position;
-                B_Moving = true;
+               
             }
             else if (B_WhatToMove[7] && !B_Moving)
             {
                 StartCoroutine(Reservation(7));
-                B_WhatToMove[7] = false;
-                T_Target.transform.position = GO_Positions[7].transform.position;
-                B_Moving = true;
+              
             }                
 
             float F_Step = F_Speed * Time.deltaTime;
 
-                if (B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z)
-                {
-                    B_Moving = false;
-                
-                    for (int i = 0; i > 8; i++)
-                    {
-                        B_WhatToMove[i] = false;
-                        SC_Reserve[i].SetOffTriger();
-                    }
-                  
-                   
-                }
-                else if (B_Moving && transform.position != T_Target.transform.position)
+               if (B_Moving && transform.position != T_Target.transform.position)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, T_Target.transform.position, F_Step);
                 }
+                else if (B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z && !B_InTick)
+                {
+                    B_Moving = false;
+                }
                 else if(!B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z && !B_InTick)
                 {
+                    // THIS IS SOOOO WRONG!!!
+                    print("LOL");
                     if (B_IamAtacking)
                     {
                     B_IamAtacking = false;
                     SC_GameManage.setAtacking(false);
                     }
                                  
-                   B_InTick = true;
-
+                   B_InTick = false;
+                            
                 }
 
 
@@ -203,6 +191,15 @@ public class SC_Pawn : MonoBehaviour {
         }
     
     
+    
+    }
+    public void ResetReservation()
+    {
+        B_Moving = false;
+        for (int i = 0; i < 8; i++)
+        {
+        SC_Reserve[i].SetToReset();
+        }
     }
 
     public IEnumerator Reservation(int num)
@@ -216,21 +213,32 @@ public class SC_Pawn : MonoBehaviour {
         SC_Reserve[num].SetOffTriger();
         B_Reserving = false;
 
+        B_WhatToMove[num] = false;
+        T_Target.transform.position = GO_Positions[num].transform.position;
+        B_Moving = true;
+
+
+
     }
  
 
     IEnumerator HorizontalMode()
     {
+         if(PlayerSides != null)
+        {
         yield return new WaitForSeconds(0.0f);
         float NToTarget = Vector3.Distance(PlayerSides[4].transform.position, transform.position);
         float SToTarget = Vector3.Distance(PlayerSides[5].transform.position, transform.position);
+       
+       
         if (NToTarget < SToTarget)
         {
 
             if (!Triggers[0].getTriggered() && Triggers[0].getTarget() != null)
             {
                 B_WhatToMove[0] = true;
-            }else
+            }
+
             B_Moving = true;
 
         }
@@ -244,15 +252,17 @@ public class SC_Pawn : MonoBehaviour {
             B_Moving = true;
    
         }
+        }
     B_InTick = false;
     I_TickCount--;
     }
     IEnumerator VerticalMode()
     {
         yield return new WaitForSeconds(0.0f);
+        if(PlayerSides != null)
+        {
         float WToTarget = Vector3.Distance(PlayerSides[2].transform.position, transform.position);
         float OToTarget = Vector3.Distance(PlayerSides[3].transform.position, transform.position);
-
 
         if (WToTarget < OToTarget)
         {
@@ -261,7 +271,7 @@ public class SC_Pawn : MonoBehaviour {
                 B_WhatToMove[3] = true;
             }else
             B_Moving = true;
-    
+            //StartCoroutine(HorizontalMode());
             
         }
         else
@@ -271,19 +281,25 @@ public class SC_Pawn : MonoBehaviour {
                 B_WhatToMove[2] = true;
             }else
             B_Moving = true;
+
+           // StartCoroutine(HorizontalMode());
            
         }
-     B_InTick = false;
-     I_TickCount--;
+        }
+         B_InTick = false;
+         I_TickCount--;
+           
 
     }
-
+    
     public IEnumerator TickTock()
     {
+
         I_TickCount++;
         B_InTick = true;
+        B_Tried = false;
    
-        if(GameObject.Find("Player") != null)
+        if(GameObject.Find("Player") != null && !B_ToRemove)
         {
                 Player = GameObject.Find("Player");
                 PlayerSides[0] = Player.transform.GetChild(4).gameObject;
@@ -295,7 +311,7 @@ public class SC_Pawn : MonoBehaviour {
                 yield return new WaitForSeconds(TICKTOCKSPEED);
                //Searching Nearest Target
 
-        if(GameObject.Find("Player") != null)
+        if(GameObject.Find("Player") != null && !B_ToRemove)
         {    
                 float NW, NO, SW, SO;
                 NW = Vector3.Distance(PlayerSides[0].transform.position, transform.position);
@@ -338,7 +354,7 @@ public class SC_Pawn : MonoBehaviour {
                 //-------------------------------------------- Calculations For Distance
                 float Targetpositionz = GO_Target.transform.position.z;
                 float MyPositionz = transform.position.z;
-
+    
                 float Max = Targetpositionz + 9.5f;
                 float Min = Targetpositionz - 9.5f;
 
@@ -353,7 +369,7 @@ public class SC_Pawn : MonoBehaviour {
                 if (MyPositionz <= Max && MyPositionz >= Min && MyPositionx <= Maxx && MyPositionx >= Minx)
                 {
                     
-                    if (GO_Target == PlayerSides[0] &&  Triggers[7].getTarget() == "Player" && !SC_GameManage.getAtacking() && !SC_TickTock.getPlayerSide())
+                    if (GO_Target == PlayerSides[0] &&  Triggers[7].getTarget() == "Player" && !SC_GameManage.getAtacking())
                     {
                         B_WhatToMove[7] = true;
                         SC_GameManage.setAtacking(true);
@@ -361,27 +377,33 @@ public class SC_Pawn : MonoBehaviour {
 
                     }
                     else
-                    if (GO_Target == PlayerSides[1] && Triggers[6].getTarget() == "Player" && !SC_GameManage.getAtacking() && !SC_TickTock.getPlayerSide())
+                    if (GO_Target == PlayerSides[1] && Triggers[6].getTarget() == "Player" && !SC_GameManage.getAtacking())
                     {
 
                         B_WhatToMove[6] = true;
                         SC_GameManage.setAtacking(true);
                         B_IamAtacking = true;
+                                                
+
 
                     }
                     else
-                    if (GO_Target == PlayerSides[2] && Triggers[5].getTarget() == "Player" && !SC_GameManage.getAtacking() && !SC_TickTock.getPlayerSide())
+                    if (GO_Target == PlayerSides[2] && Triggers[5].getTarget() == "Player" && !SC_GameManage.getAtacking())
                     {
                         B_WhatToMove[5] = true;
                         SC_GameManage.setAtacking(true);
                         B_IamAtacking = true;
+                                                
+
                     }
                     else
-                    if (GO_Target == PlayerSides[3] && Triggers[4].getTarget() == "Player" && !SC_GameManage.getAtacking() && !SC_TickTock.getPlayerSide())
+                    if (GO_Target == PlayerSides[3] && Triggers[4].getTarget() == "Player" && !SC_GameManage.getAtacking())
                     {
                         B_WhatToMove[4] = true;
                         SC_GameManage.setAtacking(true);
                         B_IamAtacking = true;
+
+
                     }
                     I_TickCount--;
                     B_InTick = false;
@@ -407,7 +429,19 @@ public class SC_Pawn : MonoBehaviour {
         }
     }
 
-  
+
+
+
+  public void toRemove()
+  {
+      B_ToRemove = true;
+      B_Moving = false;
+  }
+ 
+  public bool getToRemove()
+  {
+      return B_ToRemove;
+  }
 
     }
 

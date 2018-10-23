@@ -16,8 +16,11 @@ public class SC_TestingEnemy : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-
-        print(other.gameObject.name);
+		if(other.gameObject.name == "EnemyCollision")
+		{
+		print(other.gameObject.name);
         Time.timeScale = 0;
+		}
+        
     }
 }

@@ -37,6 +37,12 @@ public class SC_ReservationScript : MonoBehaviour {
 
     }
 
+    public void SetToReset()
+    {
+        if(transform.parent.name == "Pawn")
+        transform.tag = "Reset";
+    }
+
     public void SetOffTriger()
     {
      transform.tag = "Untagged";

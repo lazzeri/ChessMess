@@ -51,6 +51,25 @@ public class SC_CharacterMovement : MonoBehaviour {
         this.GetComponent<BoxCollider>().enabled = false;
     }
 
+    IEnumerator Move(int num)
+    {
+    if (!B_Moving && !Triggers[num].getTriggered() && !B_Reserving)
+    {
+        B_Reserving = true;
+        yield return new WaitForSeconds(0.1f);
+         if (!Triggers[num].getTriggered())
+        {
+                StartCoroutine(Reservation(num));
+                T_Target.transform.position = GO_Positions[num].transform.position;
+                B_Moving = true;
+        }else
+        {
+            B_Reserving = false;
+        }
+    }
+        
+    }
+
 
     void FixedUpdate()
     {
@@ -59,36 +78,31 @@ public class SC_CharacterMovement : MonoBehaviour {
         {
             
                 //Moving
-            if (Input.GetKey("w") && !B_Moving && !Triggers[0].getTriggered())
+            if (Input.GetKey("w")  && !B_Moving && !Triggers[0].getTriggered())
             {
-                StartCoroutine(Reservation(0));
-                T_Target.transform.position = GO_Positions[0].transform.position;
-                B_Moving = true;
+                StartCoroutine(Move(0));
             }
             else if (Input.GetKey("s") && !B_Moving && !Triggers[1].getTriggered())
             {
-                StartCoroutine(Reservation(1));
-                T_Target.transform.position = GO_Positions[1].transform.position;
-                B_Moving = true;
+                StartCoroutine(Move(1));
+
             }
             else if (Input.GetKey("a") && !B_Moving && !Triggers[2].getTriggered())
             {
-                StartCoroutine(Reservation(2));
-                T_Target.transform.position = GO_Positions[2].transform.position;
-                B_Moving = true;
+                StartCoroutine(Move(2));
+
             }
             else if (Input.GetKey("d") && !B_Moving && !Triggers[3].getTriggered())
             {
-                StartCoroutine(Reservation(3));
-                T_Target.transform.position = GO_Positions[3].transform.position;
-                B_Moving = true;
+                StartCoroutine(Move(3));
+
             }
 
             //Atacking
             if (Input.GetKey("q") && !B_Moving)  // Dieses GetTarget Umschreiben auf feld
             {
                 if (Triggers[4].getTarget() != null)
-                    if (Triggers[4].getTarget() == "Enemy")
+                    if (Triggers[4].getTarget() == "Enemy" || (Triggers[4].getTarget() == "ReservationEnemy"))
                     {
                         StartCoroutine(Reservation(4));
                         T_Target.transform.position = GO_Positions[4].transform.position;
@@ -100,7 +114,7 @@ public class SC_CharacterMovement : MonoBehaviour {
             else if (Input.GetKey("e") && !B_Moving)  // Dieses GetTarget Umschreiben auf feld
             {
                 if (Triggers[5].getTarget() != null)
-                    if (Triggers[5].getTarget() == "Enemy")
+                    if (Triggers[5].getTarget() == "Enemy" || (Triggers[5].getTarget() == "ReservationEnemy"))
                     {
                         StartCoroutine(Reservation(5));
                         T_Target.transform.position = GO_Positions[5].transform.position;
@@ -112,7 +126,7 @@ public class SC_CharacterMovement : MonoBehaviour {
             else if (Input.GetKey("y") && !B_Moving)  // Dieses GetTarget Umschreiben auf feld
             {
                 if (Triggers[6].getTarget() != null)
-                    if (Triggers[6].getTarget() == "Enemy")
+                    if (Triggers[6].getTarget() == "Enemy" || (Triggers[6].getTarget() == "ReservationEnemy"))
                     {
                         StartCoroutine(Reservation(6));
                         T_Target.transform.position = GO_Positions[6].transform.position;
@@ -124,7 +138,7 @@ public class SC_CharacterMovement : MonoBehaviour {
             else if (Input.GetKey("c") && !B_Moving)  // Dieses GetTarget Umschreiben auf feld
             {
                 if (Triggers[7].getTarget() != null)
-                    if (Triggers[7].getTarget() == "Enemy")
+                    if (Triggers[7].getTarget() == "Enemy" || (Triggers[7].getTarget() == "ReservationEnemy"))
                     {
                         StartCoroutine(Reservation(7));
                         T_Target.transform.position = GO_Positions[7].transform.position;

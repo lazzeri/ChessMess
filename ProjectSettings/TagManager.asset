@@ -12,6 +12,7 @@ TagManager:
   - ReservationPlayer
   - ReservationEnemy
   - Trigger
+  - Reset
   layers:
   - Default
   - TransparentFX

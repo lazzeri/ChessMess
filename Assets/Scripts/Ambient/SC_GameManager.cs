@@ -8,21 +8,24 @@ public class SC_GameManager : MonoBehaviour {
     public bool B_Reserving;
     public bool B_StartOfTickRoutine;
     // Use this for initialization
+    bool B_LastToKill;
 
-    public bool B_Test;
+    public bool Test;
     public List<GameObject> Enemies = new List<GameObject>();
 
+
     void Start () {
+        B_LastToKill = false;
         B_StartOfTickRoutine = true;
         B_Atacking = false;
         B_Reserving = false;
-        CreatePawn(5,5);
-        CreatePawn(15,15);
-        CreatePawn(35,35);
-        CreatePawn(-25f,25f);
-        CreatePawn(-15,35);
-        CreatePawn(25f,-35f);
-        CreatePawn(-15,5);
+        //CreatePawn(5,5);
+        //CreatePawn(15,15);
+       //CreatePawn(35,35);
+       // CreatePawn(-25f,25f);
+      // CreatePawn(-15,35);
+       CreatePawn(25f,-35f); // CLosest one
+       //CreatePawn(-15,5);
     }
 
     void CreatePawn(float x, float z)
@@ -34,6 +37,8 @@ public class SC_GameManager : MonoBehaviour {
         Enemie1.name = "Pawn";
         Enemies.Add(Enemie1);
     }
+
+
 	
 
     public void StopEnemies()
@@ -49,38 +54,83 @@ public class SC_GameManager : MonoBehaviour {
     }
     public void StartEnemies()
     {
-       foreach(GameObject Enemy in Enemies)
+      for(int i = 0; i < Enemies.Count; i++)
        {
-        if(Enemy.GetComponent<SC_Pawn>())
+        if(Enemies[i].GetComponent<SC_Pawn>())
         {
-        Enemy.GetComponent<SC_Pawn>().enabled = true;
-        Destroy(Enemy.GetComponent<SC_Pawn>().GO_Target);
-        Enemy.GetComponent<SC_Pawn>().SetPlayersides();
-        Enemy.GetComponent<SC_Pawn>().SetB_Moving();
+        Enemies[i].GetComponent<SC_Pawn>().enabled = true;
+        Destroy(Enemies[i].GetComponent<SC_Pawn>().GO_Target);
+        Enemies[i].GetComponent<SC_Pawn>().SetPlayersides();
+        Enemies[i].GetComponent<SC_Pawn>().SetB_Moving();
         }
      
       
        }
     }
+    
     IEnumerator StartTickTocks()
     {
+        bool breaker = false;
         B_StartOfTickRoutine = false;
-        foreach (GameObject Enemy in Enemies)
+
+        if(Enemies.Count == 1 && Enemies[0].GetComponent<SC_Pawn>().getToRemove() && Enemies[0] != null && Enemies[0].GetComponent<SC_Pawn>().getB_Moving() == false)
         {
-            if (Enemy.GetComponent<SC_Pawn>().getB_Moving() == false && B_Atacking != true)
+            Enemies[0].GetComponent<SC_Pawn>().StopAllCoroutines();
+            yield return new WaitForSeconds(0.1f);
+            Destroy(Enemies[0]);
+            Enemies.Remove(Enemies[0]);
+            breaker = true;
+
+
+        } else if(Enemies.Count == 1 && Enemies[0].GetComponent<SC_Pawn>().getB_Moving() == false && B_Atacking != true && Enemies[0] != null && !breaker && Enemies[0].GetComponent<SC_Pawn>().B_InTick == false)
+        {
+            StartCoroutine(Enemies[0].GetComponent<SC_Pawn>().TickTock());
+            yield return new WaitForSeconds(0.5f);
+        }
+        else if(Enemies.Count > 1)
+        {
+        for(int i = 0; i < Enemies.Count; i++)
+        { 
+            
+            
+            if(Enemies[i].GetComponent<SC_Pawn>().getToRemove())
             {
-                StartCoroutine(Enemy.GetComponent<SC_Pawn>().TickTock());
+            Enemies[i].GetComponent<SC_Pawn>().ResetReservation();
+            Enemies[i].GetComponent<SC_Pawn>().StopAllCoroutines();
+            Destroy(Enemies[i]);
+            Enemies.Remove(Enemies[i]);
+            breaker = true;
+            } 
+            else if(Enemies[i].GetComponent<SC_Pawn>().getB_Moving() == false && B_Atacking != true && !breaker)
+            {
+                StartCoroutine(Enemies[i].GetComponent<SC_Pawn>().TickTock());
+                
             }
             yield return new WaitForSeconds(0.1f);
+            if(Enemies.Count == 2)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+        }        
+        }else
+        {
+            yield return new WaitForSeconds(0.5f);
         }
+        
+        breaker = false;    
         B_StartOfTickRoutine = true;
+
     }
+
+
 
 
     private void FixedUpdate()
     {
         if (B_StartOfTickRoutine)
+        {
             StartCoroutine(StartTickTocks());
+        }
 
 
         if (Input.GetKey("space"))
@@ -136,4 +186,3 @@ public class SC_GameManager : MonoBehaviour {
 
 
 }
-//in 15 schritten y = 5

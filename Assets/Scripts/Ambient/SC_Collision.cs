@@ -22,16 +22,18 @@ public class SC_Collision : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (SC_Tick.getPlayerSide())
+        if (SC_Tick.getPlayerSide() && other.name == "EnemyCollision")
         {
-            Destroy(other.transform.parent.gameObject);
-         
-
+        other.transform.parent.gameObject.GetComponent<SC_Pawn>().ResetReservation();
+        other.transform.parent.gameObject.GetComponent<SC_Pawn>().toRemove();
+        SC_Gamemanage.setAtacking(false);   
+       
+          
         }
         else
         {
-            SC_Gamemanage.StopEnemies();
-            Destroy(transform.parent.gameObject);
+         SC_Gamemanage.StopEnemies();
+        Destroy(transform.parent.gameObject);
          
 
         }
