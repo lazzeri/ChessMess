@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SC_CharacterMovement : MonoBehaviour {
+public class SC_PawnCharacter : MonoBehaviour {
 
     public GameObject [] GO_Positions;
     public GameObject T_Target;
@@ -172,7 +172,7 @@ public class SC_CharacterMovement : MonoBehaviour {
         if (!B_Reserving)
         {
             float F_Step = F_Speed * Time.deltaTime;
-
+            // CAN WE PUT F_STEP INTO THE ELSIF???
             if (B_Moving && transform.position.x == T_Target.transform.position.x && transform.position.z == T_Target.transform.position.z)
             {
 
