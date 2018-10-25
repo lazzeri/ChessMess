@@ -17,6 +17,8 @@ public class SC_TowerCharacter : MonoBehaviour
     public bool B_WanToChange;
 
     bool B_FirstStep;
+
+    float F_OldX, F_OldY;
     void Start ()
     {
         
@@ -75,21 +77,25 @@ public class SC_TowerCharacter : MonoBehaviour
 
     void Update ()
     {
-        B_TestBool1 = B_MovDown.getBool();
-        B_TestBool2 = B_MovUp.getBool();
+        B_TestBool1 = B_MovUp.getBool();
+        B_TestBool2 = B_MovDown.getBool();
         B_TestBool3 = B_MovLeft.getBool();
         B_TestBool4 = B_MovRight.getBool();
 
-        if(B_WanToChange)
+        
+
+
+        if (B_WanToChange)
         {
-            if(transform.position.x % 5 == 0 && transform.position.y % 5 == 0)
+            if(transform.position.x == F_OldX && transform.position.y == F_OldY)
             {
                 B_WanToChange = false;
             }
             else
             {
                float F_Step = F_Speed * Time.deltaTime;
-               transform.position = Vector3.MoveTowards(transform.position, T_OldTarget.transform.position, F_Step); 
+                //transform.position = Vector3.MoveTowards(transform.position, new Vector3(F_OldX,F_OldY), F_Step);  RIght OnE
+                transform.position = Vector3.MoveTowards(transform.position, T_OldTarget.transform.position, F_Step); 
             }
 
         } else if(B_Moving && !B_WanToChange)
@@ -116,10 +122,24 @@ public class SC_TowerCharacter : MonoBehaviour
             }
             else 
             {
-                ResetMoves();
                 T_OldTarget = T_Target;
                 if(!B_FirstStep)
-                B_WanToChange = true;
+                {
+                    B_WanToChange = true;
+
+                    if (B_MovUp)
+                        ChangeTransform("North");
+                    else if (B_MovDown)
+                        ChangeTransform("South");
+                    else if (B_MovRight)
+                        ChangeTransform("East");
+                    else if (B_MovLeft)
+                        ChangeTransform("West");
+
+                    print(F_OldX);
+                    print(F_OldY);
+                }
+                ResetMoves();
                 T_Target = GO_Positions[num].transform;
                 B_OwnMove.setBool(true);
                 B_Moving = true;
@@ -133,7 +153,77 @@ public class SC_TowerCharacter : MonoBehaviour
         
     }
 
-    
+    float returnFixedValueX(string way)
+    {
+
+        switch (way)
+        {
+            case "North":
+                int i = Mathf.RoundToInt(transform.position.x);
+                while (i % 5 != 0)
+                {
+                    i++;
+                    print(i);
+                }
+                return i;
+            case "South":
+                int b = Mathf.RoundToInt(transform.position.x);
+                while (b % 5 != 0)
+                {
+                    b--;
+                    print(b);
+                }
+              
+                return b;
+            default:
+                return transform.position.x;
+        }
+    }
+
+    float returnFixedValueY(string way)
+    {
+
+        switch (way)
+        {
+            case "West":
+                int i = Mathf.RoundToInt(transform.position.y);
+                while (i % 5 != 0)
+                    i++;
+                return i;
+            case "East":
+                int b = Mathf.RoundToInt(transform.position.y);
+                while (b % 5 != 0)
+                    b--;
+                return b;
+            default:
+                return transform.position.y;
+        }
+    }
+
+    void ChangeTransform(string way)
+    {
+        switch (way)
+        {
+            case "North":
+                F_OldX = returnFixedValueX("North");
+                F_OldY = T_OldTarget.position.y;
+                break;
+            case "South":
+                F_OldX = returnFixedValueX("South");
+                F_OldY = T_OldTarget.position.y;
+                break;
+            case "East":
+                F_OldY = returnFixedValueY("East");
+                F_OldX = T_OldTarget.position.x;
+                break;
+            case "West":
+                F_OldY = returnFixedValueY("West");
+                F_OldX = T_OldTarget.position.x;
+                break;
+        }
+    }
+
+
     void ResetMoves()
     {
         B_MovDown.setBool(false);
