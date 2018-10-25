@@ -8,10 +8,26 @@ public class SC_TowerCharacter : MonoBehaviour
 	public SC_Bool B_MovRight, B_MovLeft, B_MovUp, B_MovDown;
     public GameObject[] GO_Positions;
     public float F_Speed;
-    public Transform T_Target;
+    public Transform T_Target,T_OldTarget;
     
+    public bool B_TestBool1,B_TestBool2,B_TestBool3,B_TestBool4;
+
+    public bool B_TriedMoving;
+
+    public bool B_WanToChange;
+
+    bool B_FirstStep;
     void Start ()
     {
+        
+        //TestBool is To Remove
+        B_TestBool1 = false;
+        B_TestBool2 = false;
+        B_TestBool3 = false;
+        B_TestBool4 = false;
+
+        B_WanToChange = false;
+
         GO_Positions = new GameObject[4];
         for (int i = 0; i < 4; i++)
         {
@@ -30,6 +46,8 @@ public class SC_TowerCharacter : MonoBehaviour
         B_MovUp.setBool(false);
         B_MovDown.setBool(false);
 
+        B_TriedMoving = false;
+        B_FirstStep = true;
     }
 
     
@@ -39,50 +57,83 @@ public class SC_TowerCharacter : MonoBehaviour
     {
         if (Input.GetKey("w"))
         {
-            Move(0, B_MovDown, B_MovUp);
+            StartCoroutine(Move(0, B_MovDown, B_MovUp));
         }
         else if (Input.GetKey("s"))
         {
-            Move(1, B_MovUp, B_MovDown);
+            StartCoroutine(Move(1, B_MovUp, B_MovDown));
         }
         else if (Input.GetKey("a"))
         {
-            Move(2, B_MovRight, B_MovLeft);
+            StartCoroutine(Move(2, B_MovRight, B_MovLeft));
         }
         else if (Input.GetKey("d"))
         {
-            Move(3, B_MovLeft, B_MovRight);
+           StartCoroutine(Move(3, B_MovLeft, B_MovRight));
         }
     }
 
     void Update ()
     {
-		if(B_Moving)
+        B_TestBool1 = B_MovDown.getBool();
+        B_TestBool2 = B_MovUp.getBool();
+        B_TestBool3 = B_MovLeft.getBool();
+        B_TestBool4 = B_MovRight.getBool();
+
+        if(B_WanToChange)
+        {
+            if(transform.position.x % 5 == 0 && transform.position.y % 5 == 0)
+            {
+                B_WanToChange = false;
+            }
+            else
+            {
+               float F_Step = F_Speed * Time.deltaTime;
+               transform.position = Vector3.MoveTowards(transform.position, T_OldTarget.transform.position, F_Step); 
+            }
+
+        } else if(B_Moving && !B_WanToChange)
         {
             float F_Step = F_Speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, T_Target.transform.position, F_Step);
         }
+
+
     }
 
-
-    void Move(int num, SC_Bool B_CounterMove, SC_Bool B_OwnMove)
+    IEnumerator Move(int num, SC_Bool B_CounterMove, SC_Bool B_OwnMove)
     {
-        if (B_CounterMove.getBool())
+        if(!B_TriedMoving)
         {
-            B_Moving = false;
-            ResetMoves();
-        }
-        else
-        {
+            B_TriedMoving = true;
             
-            B_OwnMove.setBool(true);
-            T_Target = GO_Positions[num].transform;
-            B_Moving = true;
+            if (B_CounterMove.getBool())
+            {
+                B_Moving = false;
+                T_OldTarget = T_Target;
+                B_WanToChange = true;
+                ResetMoves();
+            }
+            else 
+            {
+                ResetMoves();
+                T_OldTarget = T_Target;
+                if(!B_FirstStep)
+                B_WanToChange = true;
+                T_Target = GO_Positions[num].transform;
+                B_OwnMove.setBool(true);
+                B_Moving = true;
+                B_FirstStep = false;
+            }
+            
+            yield return new WaitForSeconds(0.15f);
+            B_TriedMoving = false;
         }
-
+       
         
     }
 
+    
     void ResetMoves()
     {
         B_MovDown.setBool(false);

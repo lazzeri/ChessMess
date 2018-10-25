@@ -1852,8 +1852,9 @@ MonoBehaviour:
   B_Atacking: 0
   B_Reserving: 0
   B_StartOfTickRoutine: 0
-  Test: 0
+  Test: 1
   Enemies: []
+  Test_Pawn: 0
 --- !u!4 &664723579
 Transform:
   m_ObjectHideFlags: 0
@@ -5366,7 +5367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c0c7cec2f88c24cab210f7dac6e2ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TickSpeed: 2000
+  TickSpeed: 2
   PlayerSide: 1
   M_Mat: {fileID: 0}
 --- !u!65 &1688426058
@@ -6141,12 +6142,12 @@ Prefab:
     - target: {fileID: 114909703611648124, guid: dff53b4be5a3f95459525e1db5ce8b31,
         type: 2}
       propertyPath: TICKTOCKSPEED
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 114909703611648124, guid: dff53b4be5a3f95459525e1db5ce8b31,
         type: 2}
       propertyPath: F_RESERVERATIONSPEED
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 65567233184860502, guid: dff53b4be5a3f95459525e1db5ce8b31,
         type: 2}

@@ -56,7 +56,6 @@ public class SC_Pawn : MonoBehaviour {
             SC_Reserve[c] = transform.GetChild(c + 8).GetComponent<SC_ReservationScript>();
         }
 
-       
         // 0 = NW 1 = NO 2 = SW 3 = SO
         PlayerSides = new GameObject[6];
        if(GameObject.Find("Player") != null) 

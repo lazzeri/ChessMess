@@ -6,7 +6,7 @@ public class SC_Bool : MonoBehaviour {
     public bool B_Boolean;
 	// Use this for initialization
 	void Start () {
-		
+		B_Boolean = false;
 	}
 	
 	// Update is called once per frame
