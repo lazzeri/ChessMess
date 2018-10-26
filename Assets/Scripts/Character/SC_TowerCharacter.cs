@@ -5,10 +5,10 @@ using UnityEngine;
 public class SC_TowerCharacter : MonoBehaviour
 {
     public bool B_Moving;
-	public SC_Bool B_MovRight, B_MovLeft, B_MovUp, B_MovDown;
+	public SC_Bool B_MovUp, B_MovDown, B_MovRight, B_MovLeft;
     public GameObject[] GO_Positions;
     public float F_Speed;
-    public Transform T_Target,T_OldTarget;
+    public Transform T_Target;
     
     public bool B_TestBool1,B_TestBool2,B_TestBool3,B_TestBool4;
 
@@ -18,7 +18,7 @@ public class SC_TowerCharacter : MonoBehaviour
 
     bool B_FirstStep;
 
-    float F_OldX, F_OldY;
+    float F_OldX, F_OldZ;
     void Start ()
     {
         
@@ -87,15 +87,14 @@ public class SC_TowerCharacter : MonoBehaviour
 
         if (B_WanToChange)
         {
-            if(transform.position.x == F_OldX && transform.position.y == F_OldY)
+            if(transform.position.x == F_OldX && transform.position.z == F_OldZ)
             {
                 B_WanToChange = false;
             }
             else
             {
                float F_Step = F_Speed * Time.deltaTime;
-                //transform.position = Vector3.MoveTowards(transform.position, new Vector3(F_OldX,F_OldY), F_Step);  RIght OnE
-                transform.position = Vector3.MoveTowards(transform.position, T_OldTarget.transform.position, F_Step); 
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(F_OldX,6,F_OldZ), F_Step);  
             }
 
         } else if(B_Moving && !B_WanToChange)
@@ -109,36 +108,34 @@ public class SC_TowerCharacter : MonoBehaviour
 
     IEnumerator Move(int num, SC_Bool B_CounterMove, SC_Bool B_OwnMove)
     {
-        if(!B_TriedMoving)
+        if(!B_TriedMoving && !B_WanToChange && !B_OwnMove.getBool())
         {
-            B_TriedMoving = true;
+            B_TriedMoving = true; // To reduce Player input
             
-            if (B_CounterMove.getBool())
+            if(!B_FirstStep)
+            {
+                    B_WanToChange = true;
+
+                    if (B_MovUp.getBool())
+                    {
+                        ChangeTransform(1);
+                    }
+                    else if (B_MovDown.getBool())
+                        ChangeTransform(2);
+                    else if (B_MovRight.getBool())
+                        ChangeTransform(3);
+                    else if (B_MovLeft.getBool())
+                        ChangeTransform(4);
+            }
+
+            if (B_CounterMove.getBool())  //To stop player
             {
                 B_Moving = false;
-                T_OldTarget = T_Target;
                 B_WanToChange = true;
                 ResetMoves();
             }
             else 
             {
-                T_OldTarget = T_Target;
-                if(!B_FirstStep)
-                {
-                    B_WanToChange = true;
-
-                    if (B_MovUp)
-                        ChangeTransform("North");
-                    else if (B_MovDown)
-                        ChangeTransform("South");
-                    else if (B_MovRight)
-                        ChangeTransform("East");
-                    else if (B_MovLeft)
-                        ChangeTransform("West");
-
-                    print(F_OldX);
-                    print(F_OldY);
-                }
                 ResetMoves();
                 T_Target = GO_Positions[num].transform;
                 B_OwnMove.setBool(true);
@@ -153,72 +150,81 @@ public class SC_TowerCharacter : MonoBehaviour
         
     }
 
-    float returnFixedValueX(string way)
+    float returnFixedValueX(int way)
     {
 
         switch (way)
         {
-            case "North":
+            case 1:
                 int i = Mathf.RoundToInt(transform.position.x);
-                while (i % 5 != 0)
+                 i = i - 5;
+                while (i  % 10 != 0)
                 {
                     i++;
-                    print(i);
+                    //print(i);
                 }
-                return i;
-            case "South":
+                return i + 5;
+            case 2:
                 int b = Mathf.RoundToInt(transform.position.x);
-                while (b % 5 != 0)
+                 b = b - 5;
+                while (b  % 10 != 0)
                 {
                     b--;
-                    print(b);
+                   // print(b);
                 }
               
-                return b;
+                return b + 5;
             default:
+                print("Lmao");
                 return transform.position.x;
         }
     }
-
-    float returnFixedValueY(string way)
+    
+    float returnFixedValueZ(int way)
     {
 
         switch (way)
         {
-            case "West":
-                int i = Mathf.RoundToInt(transform.position.y);
-                while (i % 5 != 0)
+            case 4:
+                int i = Mathf.RoundToInt(transform.position.z);
+                i = i - 5;
+                while (i  % 10 != 0)
+                {
                     i++;
-                return i;
-            case "East":
-                int b = Mathf.RoundToInt(transform.position.y);
-                while (b % 5 != 0)
+                }
+                return i + 5;
+            case 3:
+                int b = Mathf.RoundToInt(transform.position.z);
+                 b = b - 5;
+                while (b  % 10 != 0)
+                {
                     b--;
-                return b;
+                }
+                return b + 5;
             default:
-                return transform.position.y;
+                return transform.position.z;
         }
     }
 
-    void ChangeTransform(string way)
+    void ChangeTransform(int way)
     {
         switch (way)
         {
-            case "North":
-                F_OldX = returnFixedValueX("North");
-                F_OldY = T_OldTarget.position.y;
+            case 1:
+                F_OldX = returnFixedValueX(1);
+                F_OldZ = transform.position.z;
                 break;
-            case "South":
-                F_OldX = returnFixedValueX("South");
-                F_OldY = T_OldTarget.position.y;
+            case 2:
+                F_OldX = returnFixedValueX(2);
+                F_OldZ = transform.position.z;
                 break;
-            case "East":
-                F_OldY = returnFixedValueY("East");
-                F_OldX = T_OldTarget.position.x;
+            case 3:
+                F_OldZ = returnFixedValueZ(3);
+                F_OldX = transform.position.x;
                 break;
-            case "West":
-                F_OldY = returnFixedValueY("West");
-                F_OldX = T_OldTarget.position.x;
+            case 4:
+                F_OldZ = returnFixedValueZ(4);
+                F_OldX = transform.position.x;
                 break;
         }
     }

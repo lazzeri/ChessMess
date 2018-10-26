@@ -2003,14 +2003,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   B_Moving: 0
-  B_MovRight: {fileID: 0}
-  B_MovLeft: {fileID: 0}
   B_MovUp: {fileID: 0}
   B_MovDown: {fileID: 0}
+  B_MovRight: {fileID: 0}
+  B_MovLeft: {fileID: 0}
   GO_Positions: []
   F_Speed: 20
   T_Target: {fileID: 0}
-  T_OldTarget: {fileID: 0}
   B_TestBool1: 0
   B_TestBool2: 0
   B_TestBool3: 0
@@ -3965,7 +3964,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4508508513702186, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -35
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4508508513702186, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3973,7 +3972,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4508508513702186, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -35
+      value: -45.1
       objectReference: {fileID: 0}
     - target: {fileID: 4508508513702186, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_LocalRotation.x
@@ -5967,7 +5966,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4820335716222430, guid: 3e5d5624a0d16df419fa79d92a3336fd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -39.909996
+      value: -39.91
       objectReference: {fileID: 0}
     - target: {fileID: 4820335716222430, guid: 3e5d5624a0d16df419fa79d92a3336fd, type: 2}
       propertyPath: m_LocalPosition.y
