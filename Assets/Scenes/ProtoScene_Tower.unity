@@ -4073,6 +4073,10 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114750456035032628, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
+    - {fileID: 114770585002583522, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
+    - {fileID: 114559454014282318, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
+    - {fileID: 114500666895960010, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
+    - {fileID: 114813886410491246, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &1261108366 stripped

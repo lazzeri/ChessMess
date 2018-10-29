@@ -15,7 +15,7 @@ public class SC_GameManager : MonoBehaviour {
     public bool Test_Pawn;
 
     void Start () {
-        Test_Pawn = false;
+        Test_Pawn = true;
         B_LastToKill = false;
         B_StartOfTickRoutine = true;
         B_Atacking = false;

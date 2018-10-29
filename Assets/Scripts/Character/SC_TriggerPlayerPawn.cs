@@ -65,11 +65,11 @@ public class SC_TriggerPlayerPawn : MonoBehaviour {
         if(Target != null)
         {
 
-          
+          //Changed this if problems find here
             
-            if (TargetName == "Field")
+            if (TargetName.StartsWith("F"))
             {
-                if (TargetTag == ("Enemy") || TargetTag == ("ReservationEnemy") || TargetTag == ("Player") || TargetTag == ("ReservationPlayer"))
+                if (TargetTag.StartsWith("E") || TargetTag.StartsWith("R") || TargetTag.StartsWith("P"))
                 {
                     return true;
 
