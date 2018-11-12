@@ -19,9 +19,13 @@ public class SC_TowerCharacter : MonoBehaviour
     bool B_FirstStep;
 
     float F_OldX, F_OldZ;
+
+    public bool B_OutofBounding;
+
+   public SC_TriggerTower[] SC_Triggers;
     void Start ()
     {
-        
+        B_OutofBounding = false;
         //TestBool is To Remove
         B_TestBool1 = false;
         B_TestBool2 = false;
@@ -35,6 +39,13 @@ public class SC_TowerCharacter : MonoBehaviour
         {
             GO_Positions[i] = this.transform.GetChild(i).gameObject;
         }
+
+        SC_Triggers = new SC_TriggerTower[4];
+        for (int i = 0; i < 4; i++)
+        {
+            SC_Triggers[i] = this.transform.GetChild(i).gameObject.GetComponent<SC_TriggerTower>();
+        }
+
 
         B_Moving = false;
 
@@ -87,6 +98,13 @@ public class SC_TowerCharacter : MonoBehaviour
 
         if (B_WanToChange)
         {
+            if(transform.position.x == F_OldX && transform.position.z == F_OldZ && B_OutofBounding)
+            {
+                ResetMoves();
+                B_OutofBounding = false;
+                B_WanToChange = false;
+            }
+
             if(transform.position.x == F_OldX && transform.position.z == F_OldZ)
             {
                 B_WanToChange = false;
@@ -108,7 +126,7 @@ public class SC_TowerCharacter : MonoBehaviour
 
     IEnumerator Move(int num, SC_Bool B_CounterMove, SC_Bool B_OwnMove)
     {
-        if(!B_TriedMoving && !B_WanToChange && !B_OwnMove.getBool())
+        if(!B_TriedMoving && !B_WanToChange && !B_OwnMove.getBool() && !B_OutofBounding)
         {
             B_TriedMoving = true; // To reduce Player input
             
@@ -229,7 +247,6 @@ public class SC_TowerCharacter : MonoBehaviour
         }
     }
 
-
     void ResetMoves()
     {
         B_MovDown.setBool(false);
@@ -238,4 +255,52 @@ public class SC_TowerCharacter : MonoBehaviour
         B_MovLeft.setBool(false);
 
     }
+    public void CalcStopWay()
+    {
+        B_WanToChange = true;
+        B_OutofBounding = true;
+            if (B_MovUp.getBool())
+            {
+                ChangeTransform(1);
+            }
+            else if (B_MovDown.getBool())
+                ChangeTransform(2);
+            else if (B_MovRight.getBool())
+                ChangeTransform(3);
+            else if (B_MovLeft.getBool())
+                ChangeTransform(4);   
+    }
+
+    //This method is used for when he is try to get out of a field
+     public  void StopMoving()
+    {
+        if (B_MovUp.getBool() && !SC_Triggers[0].getTriggered())
+        {
+            print("North");
+            B_Moving = false;
+           CalcStopWay();
+        }
+        else if (B_MovDown.getBool() && !SC_Triggers[1].getTriggered())
+        {
+            print("South");
+            B_Moving = false;
+            CalcStopWay();
+        }
+        else if (B_MovRight.getBool() && !SC_Triggers[3].getTriggered())
+        {
+            print("East");
+            B_Moving = false;
+           CalcStopWay();
+
+        }
+        else if (B_MovLeft.getBool() && !SC_Triggers[2].getTriggered())
+        {
+            print("West");
+            B_Moving = false;           
+           CalcStopWay();
+        }
+
+    }
+
 }
+

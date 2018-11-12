@@ -13,6 +13,7 @@ TagManager:
   - ReservationEnemy
   - Trigger
   - Reset
+  - ACenterField
   layers:
   - Default
   - TransparentFX

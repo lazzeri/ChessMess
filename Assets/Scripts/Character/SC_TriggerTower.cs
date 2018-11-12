@@ -2,21 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class SC_TriggerTower : MonoBehaviour {
 
-    //What this script does:
-    //Updates Evrey time Transformation lands on a new "Real" Spot, and checks then if the field is Going towards to is a Field by checking if the Component is A Field.
-    // Whats the most efficent way to do this:  Check evry time lands on new real spot + is moving -->  aktivate TriggerChecking for that position
+    public bool B_Triggert = true;
+    
+    void Start()
+    {
+        B_Triggert = true;
+    
+    }
+    
+    void OnTriggerEnter(Collider other)
+    {
 
-	// Use this for initialization
-	void Start ()
+      B_Triggert = true;
+        
+    }
+
+
+    void OnTriggerExit(Collider other)
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+
+        B_Triggert = false;
+
+    }
+
+
+    public bool getTriggered()
     {
-		
-	}
+        return B_Triggert;
+    }
+
+
 }
