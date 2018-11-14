@@ -52,8 +52,5 @@
         "ProjectSettings/":true,
         "temp/":true,
         "Temp/":true
-    },
-    "csharp.suppressDotnetInstallWarning": true,
-    "csharp.suppressDotnetRestoreNotification": true,
-    "csharp.suppressProjectJsonWarning": true
+    }
 }

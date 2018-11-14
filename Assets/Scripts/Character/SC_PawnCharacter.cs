@@ -24,6 +24,8 @@ public class SC_PawnCharacter : MonoBehaviour {
             SC_Reserve[c] = transform.GetChild(c + 8).GetComponent<SC_ReservationScript>();
         }
 
+
+
         Triggers = new SC_TriggerPlayerPawn[8];
         for (int c = 0; c < 8; c++)
         {

@@ -273,12 +273,12 @@ public class SC_TowerCharacter : MonoBehaviour
 
     //This method is used for when he is try to get out of a field
      public  void StopMoving()
-    {
+     {
         if (B_MovUp.getBool() && !SC_Triggers[0].getTriggered())
         {
             print("North");
             B_Moving = false;
-           CalcStopWay();
+            CalcStopWay();
         }
         else if (B_MovDown.getBool() && !SC_Triggers[1].getTriggered())
         {
@@ -290,14 +290,44 @@ public class SC_TowerCharacter : MonoBehaviour
         {
             print("East");
             B_Moving = false;
-           CalcStopWay();
+            CalcStopWay();
 
         }
         else if (B_MovLeft.getBool() && !SC_Triggers[2].getTriggered())
         {
             print("West");
             B_Moving = false;           
-           CalcStopWay();
+            CalcStopWay();
+        }
+
+    }
+
+    public void StopMovingKill()
+    {
+        if (B_MovUp.getBool())
+        {
+            print("North");
+            B_Moving = false;
+            CalcStopWay();
+        }
+        else if (B_MovDown.getBool())
+        {
+            print("South");
+            B_Moving = false;
+            CalcStopWay();
+        }
+        else if (B_MovRight.getBool())
+        {
+            print("East");
+            B_Moving = false;
+            CalcStopWay();
+
+        }
+        else if (B_MovLeft.getBool())
+        {
+            print("West");
+            B_Moving = false;
+            CalcStopWay();
         }
 
     }

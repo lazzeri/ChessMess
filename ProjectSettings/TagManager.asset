@@ -13,7 +13,6 @@ TagManager:
   - ReservationEnemy
   - Trigger
   - Reset
-  - ACenterField
   - EmptyField
   layers:
   - Default
