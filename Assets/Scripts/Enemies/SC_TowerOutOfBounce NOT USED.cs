@@ -22,8 +22,7 @@ public class SC_TowerOutOfBounce : MonoBehaviour {
 		if(other.transform.tag.StartsWith("A"))
 		{
 				print(this.transform.name);	
-				SC_Tower.StopMoving();
-				print(SC_Tower.SC_Triggers[0].getTriggered());
+			//	SC_Tower.StopMoving();
 		}
 	}
 

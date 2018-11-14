@@ -126,7 +126,7 @@ public class SC_TowerCharacter : MonoBehaviour
 
     IEnumerator Move(int num, SC_Bool B_CounterMove, SC_Bool B_OwnMove)
     {
-        if(!B_TriedMoving && !B_WanToChange && !B_OwnMove.getBool() && !B_OutofBounding)
+        if(!B_TriedMoving && !B_WanToChange && !B_OwnMove.getBool() && !B_OutofBounding && SC_Triggers[num].getTriggered())
         {
             B_TriedMoving = true; // To reduce Player input
             
