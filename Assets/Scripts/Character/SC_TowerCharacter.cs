@@ -279,36 +279,32 @@ public class SC_TowerCharacter : MonoBehaviour
      {
         if (B_MovUp.getBool() && !SC_Triggers[0].getTriggered())
         {
-            print("North");
             B_Moving = false;
             CalcStopWay();
         }
         else if (B_MovDown.getBool() && !SC_Triggers[1].getTriggered())
         {
-            print("South");
             B_Moving = false;
             CalcStopWay();
         }
         else if (B_MovRight.getBool() && !SC_Triggers[3].getTriggered())
         {
-            print("East");
             B_Moving = false;
             CalcStopWay();
 
         }
         else if (B_MovLeft.getBool() && !SC_Triggers[2].getTriggered())
         {
-            print("West");
             B_Moving = false;           
             CalcStopWay();
         }
 
     }
-
+    //Just try to disable the input for like 1 second when we kill someone smh
     IEnumerator DelayKill()
     {
         B_JustKilled = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         B_JustKilled = false;
     }
 
@@ -318,33 +314,28 @@ public class SC_TowerCharacter : MonoBehaviour
 
         if (B_MovUp.getBool())
         {
-            print("North");
             B_Moving = false;
             CalcStopWay();
         }
         else if (B_MovDown.getBool())
         {
-            print("South");
             B_Moving = false;
             CalcStopWay();
         }
         else if (B_MovRight.getBool())
         {
-            print("East");
             B_Moving = false;
             CalcStopWay();
 
         }
         else if (B_MovLeft.getBool())
         {
-            print("West");
             B_Moving = false;
             CalcStopWay();
         }
 
     }
     
-    //Just try to disable the input for like 1 second when we kill someone smh
 
 
 }

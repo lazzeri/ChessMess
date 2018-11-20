@@ -14,20 +14,20 @@ public class SC_Field : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (transform.tag == "Untagged")
+        if (transform.CompareTag("Untagged"))
             M_Mat.material.color = Color.gray;
        
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Untagged" && other.tag != "Trigger" && other.name != "Field")
+        if (!other.CompareTag("Untagged") && !other.CompareTag("Trigger") && !other.CompareTag("Field"))
         {
             count++;
         }
       
         
-            if (other.name == "Player")
+            if (other.name.StartsWith("P")) //== "Player")
             {
                 M_Mat.material.color = Color.green;
                 transform.tag = "Player";
@@ -88,6 +88,7 @@ public class SC_Field : MonoBehaviour {
             {
                 M_Mat.material.color = Color.blue;
                 transform.tag = "ReservationEnemy";
+                
             }
 
             if (count == 0)
@@ -111,12 +112,11 @@ public class SC_Field : MonoBehaviour {
 
 
     }
-
   
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.tag != "Untagged" && other.tag != "Trigger" && other.name != "Field")
+        if (!other.CompareTag("Untagged") && !other.CompareTag("Trigger") && !other.CompareTag("Field"))
         {
             count--;
         }

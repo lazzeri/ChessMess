@@ -848,6 +848,27 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e5d5624a0d16df419fa79d92a3336fd, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &249041920 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1420816321201436, guid: aa3958bac0a3eee43b754be0607cc0b6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1258096073}
+--- !u!114 &249041922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 249041920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f437744cfde55b488298310876f430e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trying: 0
+  Triggert: 0
+  Target: {fileID: 0}
+  TargetName: Penis
+  TargetTag: Dumbo
 --- !u!1001 &249967235
 Prefab:
   m_ObjectHideFlags: 0
@@ -1827,6 +1848,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4820335716222430, guid: 3e5d5624a0d16df419fa79d92a3336fd,
     type: 2}
   m_PrefabInternal: {fileID: 1752050565}
+--- !u!1 &561021468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1721364695477970, guid: aa3958bac0a3eee43b754be0607cc0b6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1258096073}
+--- !u!114 &561021470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 561021468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f437744cfde55b488298310876f430e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trying: 0
+  Triggert: 0
+  Target: {fileID: 0}
+  TargetName: Penis
+  TargetTag: Dumbo
 --- !u!4 &568586967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4820335716222430, guid: 3e5d5624a0d16df419fa79d92a3336fd,
@@ -5309,7 +5351,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1420816321201436, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1343139193499016, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_IsActive
@@ -5349,7 +5391,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1721364695477970, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1468277974250712, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_IsActive
@@ -5357,11 +5399,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1160614351833408, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1185664952881472, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1145894059048544, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
       propertyPath: m_IsActive
@@ -5398,6 +5440,10 @@ Prefab:
     - {fileID: 114770585002583522, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
     - {fileID: 114500666895960010, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
     - {fileID: 114043523618829870, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
+    - {fileID: 114488120457610038, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
+    - {fileID: 114674922884944480, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
+    - {fileID: 114302916260056554, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
+    - {fileID: 114072591981886808, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: aa3958bac0a3eee43b754be0607cc0b6, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &1261108366 stripped
@@ -5839,6 +5885,27 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e5d5624a0d16df419fa79d92a3336fd, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1349110284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1185664952881472, guid: aa3958bac0a3eee43b754be0607cc0b6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1258096073}
+--- !u!114 &1349110286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1349110284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f437744cfde55b488298310876f430e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trying: 0
+  Triggert: 0
+  Target: {fileID: 0}
+  TargetName: Penis
+  TargetTag: Dumbo
 --- !u!1001 &1356005220
 Prefab:
   m_ObjectHideFlags: 0
@@ -6810,6 +6877,27 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e5d5624a0d16df419fa79d92a3336fd, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1558258118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1160614351833408, guid: aa3958bac0a3eee43b754be0607cc0b6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1258096073}
+--- !u!114 &1558258120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1558258118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f437744cfde55b488298310876f430e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trying: 0
+  Triggert: 0
+  Target: {fileID: 0}
+  TargetName: Penis
+  TargetTag: Dumbo
 --- !u!1001 &1565082069
 Prefab:
   m_ObjectHideFlags: 0
@@ -8405,12 +8493,12 @@ Prefab:
     - target: {fileID: 114909703611648124, guid: dff53b4be5a3f95459525e1db5ce8b31,
         type: 2}
       propertyPath: TICKTOCKSPEED
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 114909703611648124, guid: dff53b4be5a3f95459525e1db5ce8b31,
         type: 2}
       propertyPath: F_RESERVERATIONSPEED
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 65567233184860502, guid: dff53b4be5a3f95459525e1db5ce8b31,
         type: 2}
