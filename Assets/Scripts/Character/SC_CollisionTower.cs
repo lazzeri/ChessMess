@@ -27,14 +27,15 @@ public class SC_CollisionTower : MonoBehaviour
         
         if (SC_Tick.getPlayerSide() && other.name == "EnemyCollision")
         {
+        other.transform.parent.gameObject.GetComponent<SC_Pawn>().ResettoUntagged();
         other.transform.parent.gameObject.GetComponent<SC_Pawn>().ResetReservation();
         other.transform.parent.gameObject.GetComponent<SC_Pawn>().toRemove();
         SC_Gamemanage.setAtacking(false);
-            SC_Tower.StopMovingKill();
+        SC_Tower.StopMovingKill();
         }
         else
         {
-         SC_Gamemanage.StopEnemies();
+        SC_Gamemanage.StopEnemies();
         Destroy(transform.parent.gameObject);
          
 

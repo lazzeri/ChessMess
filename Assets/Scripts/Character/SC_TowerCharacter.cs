@@ -22,9 +22,12 @@ public class SC_TowerCharacter : MonoBehaviour
 
     public bool B_OutofBounding;
 
+    bool B_JustKilled;
+
    public SC_TriggerTower[] SC_Triggers;
     void Start ()
     {
+        B_JustKilled = false;
         B_OutofBounding = false;
         //TestBool is To Remove
         B_TestBool1 = false;
@@ -126,7 +129,7 @@ public class SC_TowerCharacter : MonoBehaviour
 
     IEnumerator Move(int num, SC_Bool B_CounterMove, SC_Bool B_OwnMove)
     {
-        if(!B_TriedMoving && !B_WanToChange && !B_OwnMove.getBool() && !B_OutofBounding && SC_Triggers[num].getTriggered())
+        if(!B_TriedMoving && !B_WanToChange && !B_OwnMove.getBool() && !B_OutofBounding && SC_Triggers[num].getTriggered() && !B_JustKilled)
         {
             B_TriedMoving = true; // To reduce Player input
             
@@ -302,8 +305,17 @@ public class SC_TowerCharacter : MonoBehaviour
 
     }
 
+    IEnumerator DelayKill()
+    {
+        B_JustKilled = true;
+        yield return new WaitForSeconds(1f);
+        B_JustKilled = false;
+    }
+
     public void StopMovingKill()
     {
+        StartCoroutine(DelayKill());
+
         if (B_MovUp.getBool())
         {
             print("North");
@@ -331,6 +343,9 @@ public class SC_TowerCharacter : MonoBehaviour
         }
 
     }
+    
+    //Just try to disable the input for like 1 second when we kill someone smh
+
 
 }
 

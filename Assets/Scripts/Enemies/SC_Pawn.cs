@@ -205,6 +205,11 @@ public class SC_Pawn : MonoBehaviour {
     
     
     }
+    public void ResettoUntagged()
+    {
+        transform.tag = "Untagged";
+    }
+
     public void ResetReservation()
     {
         B_Moving = false;
