@@ -31,7 +31,7 @@ public class SC_CollisionTower : MonoBehaviour
         other.transform.parent.gameObject.GetComponent<SC_Pawn>().ResetReservation();
         other.transform.parent.gameObject.GetComponent<SC_Pawn>().toRemove();
         SC_Gamemanage.setAtacking(false);
-        SC_Tower.StopMovingKill();
+        SC_Tower.StopMovingKill();  // ONLY DIFFERENT THING TO COLLSIONPAWN
         }
         else
         {

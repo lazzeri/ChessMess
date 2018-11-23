@@ -116,7 +116,7 @@ public class SC_GameManager : MonoBehaviour {
                 
             }
             yield return new WaitForSeconds(0.1f);
-            if(Enemies.Count == 2)
+            if(Enemies.Count == 2 || Enemies.Count == 3)
             {
                 yield return new WaitForSeconds(0.1f);
             }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Normal Fieldsize: 05 10 04
 public class SC_Field : MonoBehaviour {
     public Renderer M_Mat;
     public int count = 0;
@@ -56,14 +56,6 @@ public class SC_Field : MonoBehaviour {
 
     public void OnTriggerStay(Collider other)
     {
-        if(count > 1)
-        {
-            count = 1;
-        }
-        if(count < 0)
-        {
-            count = 0;
-        }
        
             if (other.CompareTag("Player"))
             {
@@ -112,7 +104,17 @@ public class SC_Field : MonoBehaviour {
 
 
     }
-  
+  public void Update()
+  {
+      if(count > 1)
+        {
+            count = 1;
+        }
+        if(count < 0)
+        {
+            count = 0;
+        }
+  }
 
     public void OnTriggerExit(Collider other)
     {

@@ -56,7 +56,7 @@ public class SC_TriggerPlayerPawn : MonoBehaviour {
 
     public bool getTriggered()
     {
-        if(Target == null)
+        if(Target == null  || Target.tag == "EmptyField")
         {
             return true;
         }
