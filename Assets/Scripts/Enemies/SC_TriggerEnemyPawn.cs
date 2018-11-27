@@ -12,15 +12,7 @@ public class SC_TriggerEnemyPawn : MonoBehaviour {
     bool checking;
     public int I_InTrigger = 0;
    
-    void OnDrawGizmos()
-    {
-        if (Target != null)
-        {
-
-            Gizmos.color = new Color(1, 0, 0, 0.5f);
-            Gizmos.DrawCube(Target.transform.position, new Vector3(1, 1, 1));
-        }
-    }
+   
     void Start()
     {
         
