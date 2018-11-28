@@ -1053,7 +1053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &262083986
 Transform:
   m_ObjectHideFlags: 0
@@ -1552,7 +1552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &404664576
 Transform:
   m_ObjectHideFlags: 0
@@ -2729,7 +2729,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 664723577}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c474be240f6e01745bee884af45ee1ce, type: 3}
   m_Name: 
@@ -4047,8 +4047,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   G_Player: {fileID: 0}
   T_PlayerTransform: {fileID: 0}
+  T_Target: {fileID: 0}
   B_InTick: 0
   I_Tickcount: 0
+  G_Triggers: []
+  F_Speed: 20
+  B_Moving: 0
 --- !u!54 &943562797
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5726,7 +5730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1242759045
 Transform:
   m_ObjectHideFlags: 0
@@ -9011,7 +9015,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1862066870
 Transform:
   m_ObjectHideFlags: 0
