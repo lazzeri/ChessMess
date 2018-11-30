@@ -196,7 +196,6 @@ public class SC_TowerCharacter : MonoBehaviour
               
                 return b + 5;
             default:
-                print("Lmao");
                 return transform.position.x;
         }
     }
