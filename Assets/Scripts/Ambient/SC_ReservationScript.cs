@@ -26,13 +26,19 @@ public class SC_ReservationScript : MonoBehaviour {
            
 
         }
-
+        //make bether fagget
         if (transform.parent.name == "Pawn")
         {
-            transform.tag = "ReservationEnemy";
+            transform.tag = "Enemy";
+           
         }
-        
 
+        if(transform.parent.name == "Tower")
+        {
+            transform.tag = "ReservationTower";
+        }
+
+       
 
 
     }
@@ -47,4 +53,6 @@ public class SC_ReservationScript : MonoBehaviour {
     {
      transform.tag = "Untagged";
     }
+
+ 
 }

@@ -14,6 +14,7 @@ TagManager:
   - Trigger
   - Reset
   - EmptyField
+  - ReservationTower
   layers:
   - Default
   - TransparentFX

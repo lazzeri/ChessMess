@@ -14,16 +14,22 @@ public class SC_Tower : MonoBehaviour
     public GameObject[] G_Triggers;
     public float F_Speed = 20f;
     public bool B_Moving;
+    public SC_ReservationScript[] SC_Reserve;
     void Start()
     {
+        SC_Reserve = new SC_ReservationScript[4];
         B_Moving = false;
         I_Tickcount = 0;
         G_Player = GameObject.Find("Player");
         T_PlayerTransform = G_Player.transform;
-        
+
+        for (int c = 4; c < 8; c++)
+        {
+            SC_Reserve[c - 4] = transform.GetChild(c).GetComponent<SC_ReservationScript>();
+        }
 
 
-        for(int c = 0; c < 3;c++)
+        for (int c = 0; c < 3;c++)
         {
        //     G_Triggers[c] = transform.GetChild(c).gameObject;
         }
@@ -42,10 +48,11 @@ public class SC_Tower : MonoBehaviour
             float F_Step = F_Speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, T_Target, F_Step);
             }
-            if (B_Moving && transform.position.x == T_Target.x && transform.position.z == T_Target.z && !B_InTick)
+            if (B_Moving && transform.position.x == T_Target.x && transform.position.z == T_Target.z)
             {
             B_Moving = false;
             StartCoroutine(TickTock()); // Needs a delay in TickTock so it doesn't do it too many times
+          
             }
 
     }
@@ -58,8 +65,10 @@ public class SC_Tower : MonoBehaviour
 
     public IEnumerator TickTock()
     {
-        B_InTick = true;
+        ResetRReservation();
         I_Tickcount++;
+        if (I_Tickcount > 1)
+            print("AYAYAY");
         float Targetpositionz = G_Player.transform.position.z;
         float MyPositionz = transform.position.z;
 
@@ -74,19 +83,89 @@ public class SC_Tower : MonoBehaviour
         // make walkpath shorter then so it can go for a next value faster and make the path a variaton between 3 and 6 blocks
         
         if (MyPositionz <= Max && MyPositionz >= Min)
+            //Irgentwos mit wenn zu nohme kimp oder so lmao des findesch schun auser
         {
-          // Target is x axis
-           T_Target = new Vector3(returnFixedValue(T_PlayerTransform.position.x),transform.position.y,transform.position.z);
+            float T_FixedTargetx = returnFixedValue(T_PlayerTransform.position.x);
+            if (MyPositionz <= Max && MyPositionz >= Min && MyPositionx <= Maxx && MyPositionx >= Minx)
+            {
+                ResetRReservation();
+            }
+            else if (T_FixedTargetx - transform.position.x >= 50 || T_FixedTargetx - transform.position.x <= -50) //To far away
+            {
+            
+                if (transform.position.x >= T_FixedTargetx)
+                {
+                    T_FixedTargetx = Targetpositionx + 30;
+            
+                }
+                else
+                {
+                    T_FixedTargetx = T_FixedTargetx - 30;
+                    
+
+                }
+                T_Target = new Vector3(T_FixedTargetx, transform.position.y, transform.position.z);
+
+            }
+            else
+            {
+                T_Target = new Vector3(T_FixedTargetx, transform.position.y, transform.position.z);
+
+            }
+
+            if( Targetpositionx- transform.position.x> 0)
+            {
+                SC_Reserve[0].SetToTrigger();
+
+            }
+            else
+            {
+                SC_Reserve[1].SetToTrigger();
+
+            }
         }
         else
         {
-           // Target is z axis
-           T_Target = new Vector3(transform.position.x,transform.position.y,returnFixedValue(T_PlayerTransform.position.z));
+            // Target is z axis
+            //if(position is further then 5 blocks make 3block placements)
+            float T_FixedTargetz = returnFixedValue(T_PlayerTransform.position.z);
+
+            if (T_FixedTargetz - transform.position.z >= 50 || T_FixedTargetz - transform.position.z <= -50) //To far away
+            {
+
+                if (transform.position.z >= T_FixedTargetz)
+                {
+                    T_FixedTargetz = Targetpositionz + 30;
+                  
+
+                }
+                else
+                {
+                    T_FixedTargetz = Targetpositionz - 30;
+                    
+
+                }
+                T_Target = new Vector3(transform.position.x, transform.position.y, T_FixedTargetz);
+            }
+            else
+            {
+                T_Target = new Vector3(transform.position.x, transform.position.y, T_FixedTargetz);
+
+            }
+            if (Targetpositionz - transform.position.z > 0)
+            {
+                SC_Reserve[2].SetToTrigger();
+
+            }
+            else
+            {
+                SC_Reserve[3].SetToTrigger();
+
+            }
         }
-       
-        yield return new WaitForSeconds(0.1f);
+      
+        yield return new WaitForSeconds(0f);
         B_Moving = true;
-        B_InTick = false;
         I_Tickcount--;
     }
 
@@ -103,23 +182,28 @@ public class SC_Tower : MonoBehaviour
                 i++;
             }
           
-            
-                if(position - (i+5) < position - (i-15))
+            if(position - (i+5) < position - (i-15))
                 return i +5;
-                else
+            else
                 return i -15;
 
-            
-            // posi ist 22
-            // also zwischen 15 and 25
-            // 22 - 25 = -3  22 - 10 = 12 passt;
-            // -22 - -25 = 3 -22 - -10 = -12 passt net HEM NEMMERS GEGENTEIL wenn posi negativ isch
-        //wenn de lokation näher on position isch als de position -15 nor passts de posi konn ober a -10 sein
-        //beispiel: mir hoben -11 hell geat auf -10 und -25 -11 - -10 = klianer als es uane
-        //                     11                15 und 30      
 
-        // mir hoben beispiel etwas auf 15 bis 25  sol es zu 15 oder 25?  nehemen insere posi und comparen wos?
-        // 15 -mypos >             
+
+
+            //So now we have the exact position, we want to change the length now to about 3 - maxrange?
+            //Like this: if the position is further away then 5 blocks our target is only 3 blocks
+
+
+                
+    }
+
+
+    public void ResetRReservation()
+    {
+        for (int c = 0; c < 4; c++)
+        {
+            SC_Reserve[c].SetOffTriger();
+        }
     }
 
 }
