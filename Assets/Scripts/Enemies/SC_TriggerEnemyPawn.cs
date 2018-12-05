@@ -11,8 +11,7 @@ public class SC_TriggerEnemyPawn : MonoBehaviour {
     public string S_TargetTag;
     bool checking;
     public int I_InTrigger = 0;
-   
-   
+
     void Start()
     {
         
@@ -36,8 +35,8 @@ public class SC_TriggerEnemyPawn : MonoBehaviour {
     {
         I_InTrigger--;
         Target = null;
-
-        // other code
+    
+        
     }
 
   
@@ -73,7 +72,7 @@ public class SC_TriggerEnemyPawn : MonoBehaviour {
             if (Target.name == ("Field"))
             {
 
-                if (Target.CompareTag("Enemy") || Target.CompareTag("ReservationEnemy") || Target.CompareTag("Player") || Target.CompareTag("ReservationPlayer"))
+                if (Target.CompareTag("Enemy") || Target.CompareTag("ReservationEnemy") || Target.CompareTag("Player") || Target.CompareTag("ReservationPlayer") || Target.CompareTag("EmptyField") || Target.CompareTag("Enemy"))
                 {
                     return true;
 

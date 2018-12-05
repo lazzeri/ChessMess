@@ -6,7 +6,7 @@ public class SC_Tower : MonoBehaviour
 {
     public GameObject G_Player;
     public Transform T_PlayerTransform;
-
+    public SC_TriggerEnemyPawn [] SC_Trigger;
     public Vector3 T_Target;
     public bool B_InTick;
     public int I_Tickcount;
@@ -15,8 +15,17 @@ public class SC_Tower : MonoBehaviour
     public float F_Speed = 20f;
     public bool B_Moving;
     public SC_ReservationScript[] SC_Reserve;
+    public float TargetDistance;
+    public RaycastHit R_Hit;
+      
     void Start()
     {
+        SC_Trigger = new SC_TriggerEnemyPawn[4];
+        for (int c = 0; c < 4; c++)
+        {
+            SC_Trigger[c] = transform.GetChild(c).GetComponent<SC_TriggerEnemyPawn>();
+        }
+
         SC_Reserve = new SC_ReservationScript[4];
         B_Moving = false;
         I_Tickcount = 0;
@@ -81,9 +90,9 @@ public class SC_Tower : MonoBehaviour
         float Maxx = Targetpositionx + 9.5f;
         float Minx = Targetpositionx - 9.5f;
         // make walkpath shorter then so it can go for a next value faster and make the path a variaton between 3 and 6 blocks
-        
+
         if (MyPositionz <= Max && MyPositionz >= Min)
-            //Irgentwos mit wenn zu nohme kimp oder so lmao des findesch schun auser
+        //Irgentwos mit wenn zu nohme kimp oder so lmao des findesch schun auser
         {
             float T_FixedTargetx = returnFixedValue(T_PlayerTransform.position.x);
             if (MyPositionz <= Max && MyPositionz >= Min && MyPositionx <= Maxx && MyPositionx >= Minx)
@@ -92,16 +101,16 @@ public class SC_Tower : MonoBehaviour
             }
             else if (T_FixedTargetx - transform.position.x >= 50 || T_FixedTargetx - transform.position.x <= -50) //To far away
             {
-            
+
                 if (transform.position.x >= T_FixedTargetx)
                 {
                     T_FixedTargetx = Targetpositionx + 30;
-            
+
                 }
                 else
                 {
                     T_FixedTargetx = T_FixedTargetx - 30;
-                    
+
 
                 }
                 T_Target = new Vector3(T_FixedTargetx, transform.position.y, transform.position.z);
@@ -113,15 +122,13 @@ public class SC_Tower : MonoBehaviour
 
             }
 
-            if( Targetpositionx- transform.position.x> 0)
+            if (Targetpositionx - transform.position.x > 0 && !SC_Trigger[0].getTriggered())
             {
                 SC_Reserve[0].SetToTrigger();
-
             }
-            else
+            else if (Targetpositionx - transform.position.x <= 0 && !SC_Trigger[0].getTriggered() && !SC_Trigger[1].getTriggered())
             {
                 SC_Reserve[1].SetToTrigger();
-
             }
         }
         else
@@ -136,13 +143,13 @@ public class SC_Tower : MonoBehaviour
                 if (transform.position.z >= T_FixedTargetz)
                 {
                     T_FixedTargetz = Targetpositionz + 30;
-                  
+
 
                 }
                 else
                 {
                     T_FixedTargetz = Targetpositionz - 30;
-                    
+
 
                 }
                 T_Target = new Vector3(transform.position.x, transform.position.y, T_FixedTargetz);
@@ -152,19 +159,21 @@ public class SC_Tower : MonoBehaviour
                 T_Target = new Vector3(transform.position.x, transform.position.y, T_FixedTargetz);
 
             }
-            if (Targetpositionz - transform.position.z > 0)
+            if (Targetpositionz - transform.position.z > 0 && !SC_Trigger[2].getTriggered())
             {
+                if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), out R_Hit))
+                    Debug.DrawLine(this.transform.position, R_Hit.point);
                 SC_Reserve[2].SetToTrigger();
 
             }
-            else
+            else if (Targetpositionz - transform.position.z <= 0 && !SC_Trigger[2].getTriggered() && !SC_Trigger[3].getTriggered())
             {
                 SC_Reserve[3].SetToTrigger();
 
             }
         }
       
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(0.1f);
         B_Moving = true;
         I_Tickcount--;
     }
