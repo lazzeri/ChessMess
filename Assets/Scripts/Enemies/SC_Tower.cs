@@ -17,9 +17,12 @@ public class SC_Tower : MonoBehaviour
     public SC_ReservationScript[] SC_Reserve;
     public float TargetDistance;
     public RaycastHit R_Hit;
-      
+    int I_layer_mask;
+
+
     void Start()
     {
+        I_layer_mask = LayerMask.GetMask("Player", "Enemy", "Empty");
         SC_Trigger = new SC_TriggerEnemyPawn[4];
         for (int c = 0; c < 4; c++)
         {
@@ -52,7 +55,15 @@ public class SC_Tower : MonoBehaviour
     // Wenn mir no net die Z richtig hoben ober se updaten miaset hell woll passen oder?
     void Update()
     {
-            if(B_Moving)
+        if (Input.anyKeyDown)
+        {
+
+            {
+                SC_Reserve[0].gameObject.transform.localScale = new Vector3(3, 0.71117f, 0.65159f);
+            }
+        }
+
+            if (B_Moving)
             {
             float F_Step = F_Speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, T_Target, F_Step);
@@ -124,11 +135,23 @@ public class SC_Tower : MonoBehaviour
 
             if (Targetpositionx - transform.position.x > 0 && !SC_Trigger[0].getTriggered())
             {
+                if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), out R_Hit, I_layer_mask))
+                {
+                    Debug.DrawLine(this.transform.position, R_Hit.point);
+                    print(R_Hit.collider.transform.name);
+
+                }
                 SC_Reserve[0].SetToTrigger();
             }
             else if (Targetpositionx - transform.position.x <= 0 && !SC_Trigger[0].getTriggered() && !SC_Trigger[1].getTriggered())
             {
                 SC_Reserve[1].SetToTrigger();
+                if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.back), out R_Hit, I_layer_mask))
+                {
+                    Debug.DrawLine(this.transform.position, R_Hit.point);
+                    print(R_Hit.collider.transform.name);
+
+                }
             }
         }
         else
@@ -161,15 +184,24 @@ public class SC_Tower : MonoBehaviour
             }
             if (Targetpositionz - transform.position.z > 0 && !SC_Trigger[2].getTriggered())
             {
-                if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), out R_Hit))
+                if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.right), out R_Hit, I_layer_mask))
+                {
                     Debug.DrawLine(this.transform.position, R_Hit.point);
+                    print(R_Hit.collider.transform.name);
+
+                }
                 SC_Reserve[2].SetToTrigger();
 
             }
             else if (Targetpositionz - transform.position.z <= 0 && !SC_Trigger[2].getTriggered() && !SC_Trigger[3].getTriggered())
             {
                 SC_Reserve[3].SetToTrigger();
+                if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.left), out R_Hit, I_layer_mask))
+                {
+                    Debug.DrawLine(this.transform.position, R_Hit.point);
+                    print(R_Hit.collider.transform.name);
 
+                }
             }
         }
       
