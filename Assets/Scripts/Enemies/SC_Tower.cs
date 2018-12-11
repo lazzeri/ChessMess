@@ -18,10 +18,45 @@ public class SC_Tower : MonoBehaviour
     public float TargetDistance;
     public RaycastHit R_Hit;
     int I_layer_mask;
-
-
+    
+    double [] I_NorthPos;
+    double [] I_SouthPos;
+    double [] I_NothSouthSize;
     void Start()
     {
+        I_NorthPos = new double[9];
+        I_NorthPos[0] =  1.02;
+        I_NorthPos[1] =  1.02;
+        I_NorthPos[2] =  1.24;
+        I_NorthPos[3] =  1.24;
+        I_NorthPos[4] =  1.57;
+        I_NorthPos[5] =  1.7;
+        I_NorthPos[6] =  2;
+        I_NorthPos[7] =  2.23;
+        I_NorthPos[8] =  2.43;
+
+        I_SouthPos = new double[9];
+        I_SouthPos[0] =   -1.09;
+        I_SouthPos[1] =  -2.03;
+        I_SouthPos[2] =  -2.76;
+        I_SouthPos[3] =  -3.37;
+        I_SouthPos[4] =  -4.25;
+        I_SouthPos[5] =  -5.18;
+        I_SouthPos[6] =  -5.95;
+        I_SouthPos[7] = -6.7 ;
+        I_SouthPos[8] =  -7.52;
+
+        I_NothSouthSize = new double[9];
+        I_NothSouthSize[0] =  1.4;
+        I_NothSouthSize[1] =  5.08;
+        I_NothSouthSize[2] =  8.07;
+        I_NothSouthSize[3] =  9.86;
+        I_NothSouthSize[4] =  12.68;
+        I_NothSouthSize[5] =  16.81;
+        I_NothSouthSize[6] =  18.49;
+        I_NothSouthSize[7] =  21.93;
+        I_NothSouthSize[8] =  25.24;
+
         I_layer_mask = LayerMask.GetMask("Player", "Enemy", "Empty");
         SC_Trigger = new SC_TriggerEnemyPawn[4];
         for (int c = 0; c < 4; c++)
